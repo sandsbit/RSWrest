@@ -4,9 +4,9 @@ import me.nikitaserba.rsw.parser.HomographParser;
 
 public class WordParsingResult {
 
-    private String parsedWord;
-    private boolean hasHomoforms;
-    private HomographParser.ParserSettings usedSettings;
+    private final String parsedWord;
+    private final boolean hasHomoforms;
+    private final HomographParser.ParserSettings usedSettings;
 
     public WordParsingResult(String parsedWord, boolean hasHomoforms, HomographParser.ParserSettings usedSettings) {
         this.parsedWord = parsedWord;
