@@ -1,5 +1,8 @@
 package me.nikitaserba.rsw.parser;
 
+/**
+ * Class that represents homograph parsed from dictionary.
+ */
 public class Homograph {
 
     private String word;

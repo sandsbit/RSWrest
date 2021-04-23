@@ -1,5 +1,8 @@
 package me.nikitaserba.rsw.parser;
 
+/**
+ * Enum that stored the type of homograph parsed from dictionary.
+ */
 public enum HomographType {
 
     ONE_PART_OF_SPEECH,  // different homoforms of the word are the same part of speech

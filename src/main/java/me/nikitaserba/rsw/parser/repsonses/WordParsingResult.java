@@ -2,6 +2,9 @@ package me.nikitaserba.rsw.parser.repsonses;
 
 import me.nikitaserba.rsw.parser.HomographParser;
 
+/**
+ * Class that stores result of parsing word by `HomographParser`.
+ */
 public class WordParsingResult {
 
     private final String parsedWord;  // original word that was checked
