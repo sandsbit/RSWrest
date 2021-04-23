@@ -7,13 +7,13 @@ import java.util.Map;
 
 public class TextParsingResult {
 
-    private final String text;
+    private final String text;  // original text that was checked
 
-    private final long totalNumberOfParsedWords;
-    private final boolean foundAnyWordsThatHaveHomoforms;
+    private final long totalNumberOfParsedWords;  // size of 'wordsThatHaveHomoforms'
+    private final boolean foundAnyWordsThatHaveHomoforms;  // True if 'wordsThatHaveHomoforms' is not empty
     private final List<Map<String, Long>> wordsThatHaveHomoforms;
 
-    private final HomographParser.ParserSettings usedSettings;
+    private final HomographParser.ParserSettings usedSettings;  // setting that used parser while parsing
 
     public TextParsingResult(String text, long totalNumberOfParsedWords, List<Map<String, Long>> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
         this.text = text;
