@@ -32,31 +32,48 @@ public class HomographParser {
         loadHomographs();
     }
 
-    public static WordParsingResult parseWord(String word) {
+    public static WordParsingResult parseWord(String word, ParserSettings settings) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public static TextParsingResult parseText(String text) {
+    public static TextParsingResult parseText(String text, ParserSettings settings) {
         throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    public static WordParsingResult parseWord(String word) {
+        return parseWord(word, defaultSettings);
+    }
+
+    public static TextParsingResult parseText(String text) {
+        return parseText(text, defaultSettings);
     }
 
     // ---- SESSION PART ----
 
     private static List<Map<Long, String>> sessions;
+    private static List<Map<Long, ParserSettings>> settings;
 
     public static Long startSession() {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public static void endSession() {
+    public static void endSession(Long id) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public static WordParsingResult s_parseWord(String word) {
+    public static void setSessionSettings(Long id, ParserSettings settings) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public static TextParsingResult s_parseText(String text) {
+    public static ParserSettings getSessionSettings(Long id) {
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    public static WordParsingResult s_parseWord(Long id, String word) {
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    public static TextParsingResult s_parseText(Long id, String text) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
