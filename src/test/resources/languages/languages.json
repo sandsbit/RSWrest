@@ -1,0 +1,17 @@
+{
+  "apiVersion": 0,
+  "languages": [
+    {
+      "LanguageName": "Russian",
+      "LanguageCode": "ru-RU"
+    },
+    {
+      "LanguageName": "English",
+      "LanguageCode": "en-EN"
+    },
+    {
+      "LanguageName": "English (U.S.)",
+      "LanguageCode": "en-US"
+    }
+  ]
+}
