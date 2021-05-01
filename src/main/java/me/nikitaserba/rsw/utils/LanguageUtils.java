@@ -6,9 +6,9 @@ import me.nikitaserba.rsw.utils.dataclasses.LanguageList;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 /**
  * This class handles all stuff that is connected
@@ -110,20 +110,20 @@ public final class LanguageUtils {
     }
 
 
-    private List<String> allLanguagesCodesCache = null;
+    private Set<String> allLanguagesCodesCache = null;
 
     /**
-     * Returns list of all language codes.
+     * Returns set of all language codes.
      *
-     * @return unmodifiable list of codes of all languages.
+     * @return unmodifiable set of codes of all languages.
      */
-    public List<String> getAllLanguageCodes() {
+    public Set<String> getAllLanguageCodes() {
         if (allLanguagesCodesCache == null) {
-            List<String> languageCodes = new ArrayList<>(numberOfLanguages());
+            Set<String> languageCodes = new HashSet<>(numberOfLanguages());
             for (Language lang : languages.getLanguages())
                 languageCodes.add(lang.getLanguageCode());
 
-            allLanguagesCodesCache = Collections.unmodifiableList(languageCodes);
+            allLanguagesCodesCache = Collections.unmodifiableSet(languageCodes);
         }
         return allLanguagesCodesCache;
     }
