@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Class that stores result of parsing text by `HomographParser`.
  */
-public class TextParsingResult {
+public final class TextParsingResult {
 
     private final String text;  // original text that was checked
 

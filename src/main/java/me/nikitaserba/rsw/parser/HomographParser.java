@@ -10,7 +10,7 @@ import java.util.Map;
  * Class that can be used to check if word has homoforms
  * or to find words that have homoforms in text.
  */
-public class HomographParser {
+public final class HomographParser {
 
 
     // ---- GENERAL PART ----

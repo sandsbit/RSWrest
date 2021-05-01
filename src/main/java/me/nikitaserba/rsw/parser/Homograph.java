@@ -3,7 +3,7 @@ package me.nikitaserba.rsw.parser;
 /**
  * Class that represents homograph parsed from dictionary.
  */
-public class Homograph {
+public final class Homograph {
 
     private String word;
     private HomographType type;
