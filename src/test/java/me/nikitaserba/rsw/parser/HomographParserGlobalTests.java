@@ -14,7 +14,7 @@ public class HomographParserGlobalTests {
     @Jailbreak HomographParser parser = null;
 
     @Test
-    @DisplayName("Test that language utils return number of languages properly")
+    @DisplayName("Test that dictionaries are properly loaded")
     void TestLoadingDictionary() {
         Map<String, List<Homograph>> dictionaries = parser.homographs;
         assertEquals(1, dictionaries.size());
