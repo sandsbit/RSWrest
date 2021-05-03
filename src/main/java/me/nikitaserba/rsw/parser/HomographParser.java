@@ -35,6 +35,19 @@ public final class HomographParser {
             this.ignoreDiacritic = ignoreDiacritic;
             this.languageCode = languageCode;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            ParserSettings that = (ParserSettings) o;
+            return ignoreDiacritic == that.ignoreDiacritic && languageCode.equals(that.languageCode);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(ignoreDiacritic, languageCode);
+        }
     }
 
     // Settings that will be used when user don't pass his own
