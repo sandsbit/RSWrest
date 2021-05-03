@@ -18,9 +18,11 @@ public final class HomographParser {
     public static class ParserSettings {
 
         public boolean ignoreDiacritic;
+        public String languageCode;
 
-        public ParserSettings(boolean ignoreDiacritic) {
+        public ParserSettings(boolean ignoreDiacritic, String languageCode) {
             this.ignoreDiacritic = ignoreDiacritic;
+            this.languageCode = languageCode;
         }
     }
 
