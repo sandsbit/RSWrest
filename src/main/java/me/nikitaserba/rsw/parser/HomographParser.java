@@ -95,10 +95,11 @@ public final class HomographParser {
     }
 
     private static Homograph findWordInDictionary(String word, List<Homograph> dictionary) {
-        for (Homograph homograph : dictionary) {
-            if (homograph.getWord().equals(word))
-                return homograph;
-        }
+        if (dictionary != null)
+            for (Homograph homograph : dictionary) {
+                if (homograph.getWord().equals(word))
+                    return homograph;
+            }
         return null;
     }
 
