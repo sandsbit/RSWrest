@@ -1,6 +1,5 @@
 package me.nikitaserba.rsw.utils;
 
-
 import me.nikitaserba.rsw.utils.dataclasses.Language;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
