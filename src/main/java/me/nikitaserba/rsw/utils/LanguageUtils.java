@@ -8,6 +8,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -100,7 +101,7 @@ public final class LanguageUtils {
      *
      * @return array of Language objects representing all supported languages.
      */
-    public Language[] getAllLanguages() {
+    public List<Language> getAllLanguages() {
         return languages.getLanguages();
     }
 
@@ -110,7 +111,7 @@ public final class LanguageUtils {
      * @return the number of stored languages.
      */
     public int numberOfLanguages() {
-        return languages.getLanguages().length;
+        return languages.getLanguages().size();
     }
 
 

@@ -1,6 +1,6 @@
 package me.nikitaserba.rsw.utils.dataclasses;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * This data class represents list of languages
@@ -27,11 +27,11 @@ public final class LanguageList {
     // from file.
     private final int apiVersion;
 
-    private final Language[] languages;
+    private final List<Language> languages;
 
     // --- END FIELDS ---
 
-    public LanguageList(int apiVersion, Language[] languages) {
+    public LanguageList(int apiVersion, List<Language> languages) {
         this.apiVersion = apiVersion;
         this.languages = languages;
         // TODO: Warning if api versions don't match
@@ -41,7 +41,7 @@ public final class LanguageList {
         return apiVersion;
     }
 
-    public Language[] getLanguages() {
+    public List<Language> getLanguages() {
         return languages;
     }
 
@@ -49,7 +49,7 @@ public final class LanguageList {
     public String toString() {
         return "LanguageList{" +
                 "API version: " + apiVersion +
-                ", languages: " + Arrays.toString(languages) +
+                ", languages: " + languages +
                 '}';
     }
 }
