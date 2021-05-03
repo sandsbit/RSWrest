@@ -1,10 +1,21 @@
 package me.nikitaserba.rsw.parser;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import me.nikitaserba.rsw.parser.repsonses.TextParsingResult;
 import me.nikitaserba.rsw.parser.repsonses.WordParsingResult;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.lang.NonNull;
 
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 /**
  * Class that can be used to check if word has homoforms
@@ -27,16 +38,43 @@ public final class HomographParser {
     }
 
     // Settings that will be used when user don't pass his own
-    public static final ParserSettings defaultSettings = new ParserSettings(true);  // TODO: Read defaults from file
+    public static final ParserSettings defaultSettings = new ParserSettings(true,"ru-RU");  // TODO: Read defaults from file
 
-    // List of all homograps parsed from dictionary. Is loaded from resources in static context
-    private static List<Homograph> homographs;
+    // List of all homograps parsed from dictionary. Is loaded from resources in static context.
+    // Is sorted by language code
+    private static Map<String, List<Homograph>> homographs;
+    private static final Type homographType = new TypeToken<ArrayList<Homograph>>(){}.getType();
+
+    private static Resource[] getAllDictionariesAsResources() throws IOException {
+        ClassLoader classLoader = HomographParser.class.getClassLoader();
+        ResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver(classLoader);
+        return patternResolver.getResources("dictionaries/*.json");
+    }
+
+    private static void loadDictionaryFromStream(String languageCode, InputStream in) {
+        List<Homograph> homographsFromJson;
+        homographsFromJson = new Gson().fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), homographType);
+        homographs.put(languageCode, homographsFromJson);
+    }
+
+    private static String removeJsonExtension(@NonNull String filename) {
+        return filename.substring(0, filename.length() - 5);
+    }
 
     /**
      * Load homographs from resources.
      */
     private static void loadHomographs() {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        homographs = new HashMap<>();
+        try {
+            Resource[] dictionaries = getAllDictionariesAsResources();
+            for (Resource dict : dictionaries)
+                if (dict.isFile())
+                    loadDictionaryFromStream(removeJsonExtension(Objects.requireNonNull(dict.getFilename())),
+                            dict.getInputStream());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     static {
