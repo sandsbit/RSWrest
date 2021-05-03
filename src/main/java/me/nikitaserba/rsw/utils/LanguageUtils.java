@@ -76,7 +76,9 @@ public final class LanguageUtils {
      * @return instance of LanguageUtils class with data from given json.
      */
     public static LanguageUtils getFromInputStream(InputStream ins) {
-        return new Gson().fromJson(new InputStreamReader(ins, StandardCharsets.UTF_8), LanguageUtils.class);
+        LanguageUtils utils = new LanguageUtils();
+        utils.languages = new Gson().fromJson(new InputStreamReader(ins, StandardCharsets.UTF_8), LanguageList.class);
+        return utils;
     }
 
     /**
