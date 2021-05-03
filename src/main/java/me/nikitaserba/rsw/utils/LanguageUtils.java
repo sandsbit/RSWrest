@@ -19,8 +19,10 @@ public final class LanguageUtils {
     /**
      * It is the file that is used by default as the list of supported languages.
      * It is considered to be put in project resources.
+     *
+     * P.S. Don't remove slash at the beginning.
      */
-    private static final String RESOURCE_JSON_LANGUAGES_FILENAME = "languages/languages.json";
+    private static final String RESOURCE_JSON_LANGUAGES_FILENAME = "/languages/languages.json";
 
     private LanguageList languages;
 
