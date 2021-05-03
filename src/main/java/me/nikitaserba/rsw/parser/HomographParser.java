@@ -81,6 +81,14 @@ public final class HomographParser {
         loadHomographs();
     }
 
+    private static Homograph findWordInDictionary(String word, List<Homograph> dictionary) {
+        for (Homograph homograph : dictionary) {
+            if (homograph.getWord().equals(word))
+                return homograph;
+        }
+        return null;
+    }
+
     /**
      * Check if the word has homoforms.
      *
@@ -89,7 +97,23 @@ public final class HomographParser {
      * @return WordParsingResult instance with results of parsing.
      */
     public static WordParsingResult parseWord(String word, ParserSettings settings) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        boolean mayBeProperName = Character.isUpperCase(word.charAt(0));
+        String wordLowered = word.toLowerCase(Locale.ROOT);
+
+        finding_homoforms:
+        {
+            Homograph recordInDictionary = findWordInDictionary(wordLowered, homographs.get(settings.languageCode));
+            if (recordInDictionary == null)
+                break finding_homoforms;
+            if (!settings.ignoreDiacritic && recordInDictionary.isIgnoringDiacritic())
+                break finding_homoforms;
+            if (!mayBeProperName && recordInDictionary.getType() == HomographType.PROPER_NAME)
+                break finding_homoforms;
+
+            return new WordParsingResult(word, true, recordInDictionary.getHomoforms(), settings);
+        }
+
+        return new WordParsingResult(word, false, null, settings);
     }
 
     /**
