@@ -51,7 +51,19 @@
             <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/systems.manifold/manifold -->
+        <dependency>
+            <groupId>systems.manifold</groupId>
+            <artifactId>manifold</artifactId>
+            <version>2021.1.12</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/systems.manifold/manifold-ext -->
+        <dependency>
+            <groupId>systems.manifold</groupId>
+            <artifactId>manifold-ext</artifactId>
+            <version>2021.1.12</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

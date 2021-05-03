@@ -1,0 +1,14 @@
+[
+  {
+    "word": "замок",
+    "homoforms": ["за́мок", "замо́к"],
+    "type": "ONE_PART_OF_SPEECH",
+    "isIgnoringDiacritic": false
+  },
+  {
+    "word": "пчелы",
+    "homoforms": ["пчёлы", "пчелы́"],
+    "type": "FORMS_OF_ONE_WORD",
+    "isIgnoringDiacritic": true
+  }
+]
