@@ -26,7 +26,7 @@ public final class HomographParser {
 
     // ---- GENERAL PART ----
 
-    public static class ParserSettings {
+    public static final class ParserSettings {
 
         public boolean ignoreDiacritic;
         public String languageCode;
