@@ -3,7 +3,6 @@ package me.nikitaserba.rsw.parser.repsonses;
 import me.nikitaserba.rsw.parser.HomographParser;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class that stores result of parsing text by `HomographParser`.
@@ -14,11 +13,11 @@ public final class TextParsingResult {
 
     private final long totalNumberOfParsedWords;  // size of 'wordsThatHaveHomoforms'
     private final boolean foundAnyWordsThatHaveHomoforms;  // True if 'wordsThatHaveHomoforms' is not empty
-    private final List<Map<String, Long>> wordsThatHaveHomoforms;
+    private final List<WordParsingResult> wordsThatHaveHomoforms;
 
     private final HomographParser.ParserSettings usedSettings;  // setting that used parser while parsing
 
-    public TextParsingResult(String text, long totalNumberOfParsedWords, List<Map<String, Long>> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
+    public TextParsingResult(String text, long totalNumberOfParsedWords, List<WordParsingResult> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
         this.text = text;
         this.totalNumberOfParsedWords = totalNumberOfParsedWords;
         this.foundAnyWordsThatHaveHomoforms = (totalNumberOfParsedWords != 0);
@@ -26,7 +25,7 @@ public final class TextParsingResult {
         this.usedSettings = usedSettings;
     }
 
-    public TextParsingResult(String text, List<Map<String, Long>> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
+    public TextParsingResult(String text, List<WordParsingResult> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
         this.text = text;
         this.totalNumberOfParsedWords = wordsThatHaveHomoforms.size();
         this.foundAnyWordsThatHaveHomoforms = (totalNumberOfParsedWords != 0);
@@ -46,7 +45,7 @@ public final class TextParsingResult {
         return foundAnyWordsThatHaveHomoforms;
     }
 
-    public List<Map<String, Long>> getWordsThatHaveHomoforms() {
+    public List<WordParsingResult> getWordsThatHaveHomoforms() {
         return wordsThatHaveHomoforms;
     }
 

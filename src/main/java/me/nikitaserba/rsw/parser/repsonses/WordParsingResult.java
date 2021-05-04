@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Class that stores result of parsing word by `HomographParser`.
  */
-public final class WordParsingResult {
+public class WordParsingResult {
 
     private final String parsedWord;  // original word that was checked
     private final boolean wordHasHomoforms;
