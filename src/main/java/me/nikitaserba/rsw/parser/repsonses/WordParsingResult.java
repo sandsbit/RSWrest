@@ -15,7 +15,7 @@ public final class WordParsingResult {
     private final HomographParser.ParserSettings usedSettings;  // setting that used parser while parsing
 
     /**
-     * Create result of parsing word.
+     * Create result of parsing a word.
      *
      * @param parsedWord - word that was parsed.
      * @param wordHasHomoforms - if the form have any homoforms depending on used setting.
