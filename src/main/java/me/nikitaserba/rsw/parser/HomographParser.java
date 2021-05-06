@@ -96,6 +96,13 @@ public final class HomographParser {
         loadHomographs();
     }
 
+    /**
+     * Find dictionary entry for given word in given dictionary.
+     *
+     * @param word - word to search for.
+     * @param dictionary - dictionary to search in.
+     * @return dictionary entry for given word in given dictionary or `null` if there's no such entries.
+     */
     private static Homograph findWordInDictionary(String word, List<Homograph> dictionary) {
         if (dictionary != null)
             for (Homograph homograph : dictionary) {

@@ -17,6 +17,15 @@ public final class TextParsingResult {
 
     private final HomographParser.ParserSettings usedSettings;  // setting that used parser while parsing
 
+    /**
+     * Create new result of parsing text.
+     *
+     * @param text - text that was parsed.
+     * @param totalNumberOfParsedWords - size of `wordsThatHaveHomoforms`
+     * @param wordsThatHaveHomoforms - array of `ParsedWordInText` instances, that represent words in text
+     *                                 that have homoforms
+     * @param usedSettings - settings used while parsing
+     */
     public TextParsingResult(String text, long totalNumberOfParsedWords, List<ParsedWordInText> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
         this.text = text;
         this.totalNumberOfParsedWords = totalNumberOfParsedWords;
@@ -25,6 +34,16 @@ public final class TextParsingResult {
         this.usedSettings = usedSettings;
     }
 
+    /**
+     * Create new result of parsing text.
+     *
+     * Same as another constructor, but `totalNumberOfParsedWords` will be calculated as `wordsThatHaveHomoforms.size()`.
+     *
+     * @param text - text that was parsed.
+     * @param wordsThatHaveHomoforms - array of `ParsedWordInText` instances, that represent words in text
+     *                                 that have homoforms
+     * @param usedSettings - settings used while parsing will
+     */
     public TextParsingResult(String text, List<ParsedWordInText> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
         this.text = text;
         this.totalNumberOfParsedWords = wordsThatHaveHomoforms.size();
