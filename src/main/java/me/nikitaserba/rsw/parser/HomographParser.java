@@ -2,6 +2,8 @@ package me.nikitaserba.rsw.parser;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import manifold.rt.api.util.Pair;
+import me.nikitaserba.rsw.parser.repsonses.ParsedWordInText;
 import me.nikitaserba.rsw.parser.repsonses.TextParsingResult;
 import me.nikitaserba.rsw.parser.repsonses.WordParsingResult;
 import org.springframework.core.io.Resource;
@@ -128,6 +130,36 @@ public final class HomographParser {
         }
 
         return new WordParsingResult(word, false, null, settings);
+    }
+
+    /**
+     * Split text into words ifnoring all spaces, digits and punctuantion.
+     * Also saves positions of all words in original string.
+     *
+     * @param text - text to split into words.
+     * @return map; every word is stored under key which is the pair of positions of the first and last letters of the
+     *         word in the original string counting from 1.
+     */
+    private static Map<Pair<Integer, Integer>, String> splitStringIntoWords(String text) {
+        Map<Pair<Integer, Integer>, String> result = new HashMap<>();
+        boolean parsingWord = false;
+        StringBuilder currentWord = new StringBuilder();
+        int wordBeginning = -1;  // starting from 1 for first letter
+        for (int i = 0; i < text.length(); ++i) {
+            char letter = text.charAt(i);
+            if (Character.isAlphabetic(letter)) {
+                if (!parsingWord) {
+                    currentWord.setLength(0);
+                    wordBeginning = (i + 1);
+                    parsingWord = true;
+                }
+                currentWord.append(letter);
+            } else if (parsingWord) {
+                result.put(new Pair<>(wordBeginning, (i+1)), currentWord.toString());
+                parsingWord = false;
+            }
+        }
+        return result;
     }
 
     /**
