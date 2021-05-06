@@ -170,7 +170,15 @@ public final class HomographParser {
      * @return TextParsingResult with results of parsing.
      */
     public static TextParsingResult parseText(String text, ParserSettings settings) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        Map<Pair<Integer, Integer>, String> words = splitStringIntoWords(text);
+        List<ParsedWordInText> result = new ArrayList<>();
+        words.forEach((pos, word) -> {
+            WordParsingResult wordParsingResult = parseWord(word);
+            if (wordParsingResult.hasHomoforms())
+                result.add(new ParsedWordInText(wordParsingResult, pos.getFirst(), pos.getSecond()));
+        });
+
+        return new TextParsingResult(text, result, settings);
     }
 
     /**
