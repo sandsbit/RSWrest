@@ -31,7 +31,7 @@ public final class TextParsingResult {
         this.text = text;
         this.totalNumberOfParsedWords = totalNumberOfParsedWords;
         this.foundAnyWordsThatHaveHomoforms = (totalNumberOfParsedWords != 0);
-        this.wordsThatHaveHomoforms = wordsThatHaveHomoforms;
+        this.wordsThatHaveHomoforms = foundAnyWordsThatHaveHomoforms ? wordsThatHaveHomoforms : null;
         this.usedSettings = usedSettings;
     }
 
@@ -49,7 +49,7 @@ public final class TextParsingResult {
         this.text = text;
         this.totalNumberOfParsedWords = wordsThatHaveHomoforms.size();
         this.foundAnyWordsThatHaveHomoforms = (totalNumberOfParsedWords != 0);
-        this.wordsThatHaveHomoforms = wordsThatHaveHomoforms;
+        this.wordsThatHaveHomoforms = foundAnyWordsThatHaveHomoforms ? wordsThatHaveHomoforms : null;
         this.usedSettings = usedSettings;
     }
 
