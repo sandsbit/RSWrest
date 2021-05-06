@@ -205,7 +205,7 @@ public final class HomographParser {
         Map<Pair<Integer, Integer>, String> words = splitStringIntoWords(text);
         List<ParsedWordInText> result = new ArrayList<>();
         words.forEach((pos, word) -> {
-            WordParsingResult wordParsingResult = parseWord(word);
+            WordParsingResult wordParsingResult = parseWord(word, settings);
             if (wordParsingResult.hasHomoforms())
                 result.add(new ParsedWordInText(wordParsingResult, pos.getFirst(), pos.getSecond()));
         });
