@@ -145,17 +145,27 @@ public final class HomographParser {
         boolean parsingWord = false;
         StringBuilder currentWord = new StringBuilder();
         int wordBeginning = -1;  // starting from 1 for first letter
+        boolean apostrophe = false;
         for (int i = 0; i < text.length(); ++i) {
             char letter = text.charAt(i);
-            if (Character.isAlphabetic(letter)) {
+            boolean currentWordApostrophe = letter == '\'' || letter == '`';
+            if (Character.isAlphabetic(letter) || currentWordApostrophe) {
                 if (!parsingWord) {
                     currentWord.setLength(0);
                     wordBeginning = (i + 1);
                     parsingWord = true;
                 }
                 currentWord.append(letter);
+                apostrophe = currentWordApostrophe;
             } else if (parsingWord) {
-                result.put(new Pair<>(wordBeginning, (i+1)), currentWord.toString());
+                int endPosition = i;
+
+                if (apostrophe) {
+                    --endPosition;
+                    currentWord.setLength(currentWord.length() - 1);
+                }
+
+                result.put(new Pair<>(wordBeginning, endPosition), currentWord.toString());
                 parsingWord = false;
             }
         }
