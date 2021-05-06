@@ -29,15 +29,12 @@ public class HomographParserGlobalTests {
     @DisplayName("Test parsing words with default settings")
     void TestParsingWordsDefaultSettings() {
         String word = "пчелы";
-        WordParsingResult testBees = HomographParser.parseWord(word);
+        WordParsingResult result = HomographParser.parseWord(word);
 
-        assertEquals(word, testBees.getParsedWord());
-        assertTrue(testBees.hasHomoforms());
-        assertEquals(2, testBees.getPossibleHomoforms().size());
-        assertTrue(testBees.getPossibleHomoforms().contains("пчёлы"));
-        assertTrue(testBees.getPossibleHomoforms().contains("пчелы́"));
-        assertFalse(testBees.getPossibleHomoforms().contains("пчелы"));
-        assertEquals(testBees.getUsedSettings(), parser.defaultSettings);
+        WordParsingResult expected = new WordParsingResult(word, true,
+                new HashSet<String>(Arrays.asList("пчёлы", "пчелы́")), parser.defaultSettings);
+
+        assertEquals(expected, result);
 
         assertFalse(HomographParser.parseWord("капибара").hasHomoforms());
     }
@@ -47,15 +44,12 @@ public class HomographParserGlobalTests {
     void TestParsingWordsIgnoreDiacritic() {
         String word = "замок";
         HomographParser.ParserSettings settings = new HomographParser.ParserSettings(false, "ru-RU");
-        WordParsingResult testBees = HomographParser.parseWord(word, settings);
+        WordParsingResult result = HomographParser.parseWord(word, settings);
 
-        assertEquals(word, testBees.getParsedWord());
-        assertTrue(testBees.hasHomoforms());
-        assertEquals(2, testBees.getPossibleHomoforms().size());
-        assertTrue(testBees.getPossibleHomoforms().contains("за́мок"));
-        assertTrue(testBees.getPossibleHomoforms().contains("замо́к"));
-        assertFalse(testBees.getPossibleHomoforms().contains("замок"));
-        assertEquals(testBees.getUsedSettings(), settings);
+        WordParsingResult expected = new WordParsingResult(word, true,
+                new HashSet<String>(Arrays.asList("за́мок", "замо́к")), settings);
+
+        assertEquals(expected, result);
 
         assertFalse(HomographParser.parseWord("капибара", settings).hasHomoforms());
         assertFalse(HomographParser.parseWord("пчелы", settings).hasHomoforms());
