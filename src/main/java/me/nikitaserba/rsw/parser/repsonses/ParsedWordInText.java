@@ -19,15 +19,14 @@ public class ParsedWordInText extends WordParsingResult {
      * Create result of parsing a word in a text.
      *
      * @param parsedWord - word that was parsed.
-     * @param wordHasHomoforms - if the form have any homoforms depending on used setting.
      * @param possibleHomoforms - possible homoforms of the word. must be null if `hasHomoforms` is false.
      * @param usedSettings - settings used while parsing.
      * @param beginPosition - position of the first character of the word in parsed text.
      * @param endPosition - position of the last character of the word in parsed text.
      */
-    public ParsedWordInText(String parsedWord, boolean wordHasHomoforms, Set<String> possibleHomoforms,
+    public ParsedWordInText(String parsedWord, Set<String> possibleHomoforms,
                             HomographParser.ParserSettings usedSettings, int beginPosition, int endPosition) {
-        super(parsedWord, wordHasHomoforms, possibleHomoforms, usedSettings);
+        super(parsedWord, true, possibleHomoforms, usedSettings);
         this.beginPosition = beginPosition;
         this.endPosition = endPosition;
     }
@@ -41,6 +40,7 @@ public class ParsedWordInText extends WordParsingResult {
      */
     public ParsedWordInText(WordParsingResult parent, int beginPosition, int endPosition) {
         super(parent.getParsedWord(), parent.hasHomoforms(), parent.getPossibleHomoforms(), parent.getUsedSettings());
+        assert parent.hasHomoforms();
         this.beginPosition = beginPosition;
         this.endPosition = endPosition;
     }
