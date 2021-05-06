@@ -11,7 +11,8 @@ import java.util.Set;
 public class ParsedWordInText extends WordParsingResult {
 
     // position of the first character of the word in parsed text
-    private final int position;
+    private final int beginPosition;
+    private final int endPosition;
 
     /**
      * Create result of parsing a word in a text.
@@ -20,15 +21,34 @@ public class ParsedWordInText extends WordParsingResult {
      * @param wordHasHomoforms - if the form have any homoforms depending on used setting.
      * @param possibleHomoforms - possible homoforms of the word. must be null if `hasHomoforms` is false.
      * @param usedSettings - settings used while parsing.
-     * @param position - position of the first character of the word in parsed text.
+     * @param beginPosition - position of the first character of the word in parsed text.
+     * @param endPosition - position of the last character of the word in parsed text.
      */
     public ParsedWordInText(String parsedWord, boolean wordHasHomoforms, Set<String> possibleHomoforms,
-                            HomographParser.ParserSettings usedSettings, int position) {
+                            HomographParser.ParserSettings usedSettings, int beginPosition, int endPosition) {
         super(parsedWord, wordHasHomoforms, possibleHomoforms, usedSettings);
-        this.position = position;
+        this.beginPosition = beginPosition;
+        this.endPosition = endPosition;
     }
 
-    public int getPosition() {
-        return position;
+    /**
+     * Create result of parsing a word in a text.
+     *
+     * @param parent - WordParsingResult class instance, all values of inherited fields will be copied.
+     * @param beginPosition - position of the first character of the word in parsed text.
+     * @param endPosition - position of the last character of the word in parsed text.
+     */
+    public ParsedWordInText(WordParsingResult parent, int beginPosition, int endPosition) {
+        super(parent.getParsedWord(), parent.hasHomoforms(), parent.getPossibleHomoforms(), parent.getUsedSettings());
+        this.beginPosition = beginPosition;
+        this.endPosition = endPosition;
+    }
+
+    public int getBeginPosition() {
+        return beginPosition;
+    }
+
+    public int getEndPosition() {
+        return endPosition;
     }
 }
