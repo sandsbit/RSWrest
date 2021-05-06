@@ -37,6 +37,7 @@ public class HomographParserGlobalTests {
         assertEquals(expected, result);
 
         assertFalse(HomographParser.parseWord("капибара").hasHomoforms());
+        assertNull(HomographParser.parseWord("капибара").getPossibleHomoforms());
     }
 
     @Test
