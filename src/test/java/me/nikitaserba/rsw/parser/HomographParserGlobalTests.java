@@ -1,10 +1,12 @@
 package me.nikitaserba.rsw.parser;
 
 import manifold.ext.rt.api.Jailbreak;
+import manifold.rt.api.util.Pair;
 import me.nikitaserba.rsw.parser.repsonses.WordParsingResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,6 +69,32 @@ public class HomographParserGlobalTests {
         assertFalse(HomographParser.parseWord("замок", settings).hasHomoforms());
         assertFalse(HomographParser.parseWord("капибара", settings).hasHomoforms());
         assertFalse(HomographParser.parseWord("пчелы", settings).hasHomoforms());
+    }
+
+    @Test
+    @DisplayName("Test splitting text into words")
+    void TestSplittingTextIntoWords() {
+        String text = " I  don't have any words   in; English.У меня еСТь ёж. Українська мова,та espáñol. ";
+        assert text.length() == 83;
+
+        Map<Pair<Integer, Integer>, String> expectedResult = new HashMap<>(15);
+        expectedResult.put(new Pair<>(2, 2), "I");
+        expectedResult.put(new Pair<>(5, 9), "don't");
+        expectedResult.put(new Pair<>(11, 14), "have");
+        expectedResult.put(new Pair<>(16, 18), "any");
+        expectedResult.put(new Pair<>(20, 24), "words");
+        expectedResult.put(new Pair<>(28, 29), "in");
+        expectedResult.put(new Pair<>(32, 38), "English");
+        expectedResult.put(new Pair<>(40, 40), "У");
+        expectedResult.put(new Pair<>(42, 45), "меня");
+        expectedResult.put(new Pair<>(47, 50), "еСТь");
+        expectedResult.put(new Pair<>(52, 53), "ёж");
+        expectedResult.put(new Pair<>(56, 65), "Українська");
+        expectedResult.put(new Pair<>(67, 70), "мова");
+        expectedResult.put(new Pair<>(72, 73), "та");
+        expectedResult.put(new Pair<>(75, 81), "espáñol");
+
+        assertEquals(expectedResult, parser.splitStringIntoWords(text));
     }
 
 }
