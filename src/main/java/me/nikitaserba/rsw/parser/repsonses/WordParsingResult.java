@@ -2,6 +2,7 @@ package me.nikitaserba.rsw.parser.repsonses;
 
 import me.nikitaserba.rsw.parser.HomographParser;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -43,5 +44,18 @@ public class WordParsingResult {
 
     public HomographParser.ParserSettings getUsedSettings() {
         return usedSettings;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WordParsingResult that = (WordParsingResult) o;
+        return wordHasHomoforms == that.wordHasHomoforms && parsedWord.equals(that.parsedWord) && Objects.equals(possibleHomoforms, that.possibleHomoforms) && usedSettings.equals(that.usedSettings);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(parsedWord, wordHasHomoforms, possibleHomoforms, usedSettings);
     }
 }

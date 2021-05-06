@@ -1,5 +1,6 @@
 package me.nikitaserba.rsw.parser;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -33,5 +34,18 @@ public final class Homograph {
 
     public boolean isIgnoringDiacritic() {
         return isIgnoringDiacritic;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Homograph homograph = (Homograph) o;
+        return isIgnoringDiacritic == homograph.isIgnoringDiacritic && word.equals(homograph.word) && homoforms.equals(homograph.homoforms) && type == homograph.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(word, homoforms, type, isIgnoringDiacritic);
     }
 }

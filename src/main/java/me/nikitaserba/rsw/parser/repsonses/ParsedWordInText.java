@@ -2,6 +2,7 @@ package me.nikitaserba.rsw.parser.repsonses;
 
 import me.nikitaserba.rsw.parser.HomographParser;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -50,5 +51,19 @@ public class ParsedWordInText extends WordParsingResult {
 
     public int getEndPosition() {
         return endPosition;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ParsedWordInText that = (ParsedWordInText) o;
+        return beginPosition == that.beginPosition && endPosition == that.endPosition;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), beginPosition, endPosition);
     }
 }

@@ -3,6 +3,7 @@ package me.nikitaserba.rsw.parser.repsonses;
 import me.nikitaserba.rsw.parser.HomographParser;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class that stores result of parsing text by `HomographParser`.
@@ -70,5 +71,18 @@ public final class TextParsingResult {
 
     public HomographParser.ParserSettings getUsedSettings() {
         return usedSettings;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TextParsingResult result = (TextParsingResult) o;
+        return totalNumberOfParsedWords == result.totalNumberOfParsedWords && foundAnyWordsThatHaveHomoforms == result.foundAnyWordsThatHaveHomoforms && text.equals(result.text) && Objects.equals(wordsThatHaveHomoforms, result.wordsThatHaveHomoforms) && usedSettings.equals(result.usedSettings);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(text, totalNumberOfParsedWords, foundAnyWordsThatHaveHomoforms, wordsThatHaveHomoforms, usedSettings);
     }
 }
