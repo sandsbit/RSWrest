@@ -60,18 +60,38 @@ public final class HomographParser {
     private static Map<String, List<Homograph>> homographs;
     private static final Type homographType = new TypeToken<ArrayList<Homograph>>(){}.getType();
 
+    /**
+     * Parses filenames' of all available dictionaries in resources and returns them as an array of Resources.
+     *
+     * @return Array of `org.springframework.core.io.Resource` representing all available dictionaries.
+     * @throws IOException if there were any errors while working with resources.
+     */
     private static Resource[] getAllDictionariesAsResources() throws IOException {
         ClassLoader classLoader = HomographParser.class.getClassLoader();
         ResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver(classLoader);
         return patternResolver.getResources("dictionaries/*.json");
     }
 
+    /**
+     * Loads dictionary from InputStream, parses it as json and saves to `homographs` map.
+     *
+     * @param languageCode - language code of that dictionary that is parsed from name of dictionary's file.
+     * @param in - input stream to read from.
+     */
     private static void loadDictionaryFromStream(String languageCode, InputStream in) {
         List<Homograph> homographsFromJson;
         homographsFromJson = new Gson().fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), homographType);
         homographs.put(languageCode, homographsFromJson);
     }
 
+    /**
+     * Remove '.json. extension from filename.
+     *
+     * If filename does not have '.json' extension behavior in undefined.
+     *
+     * @param filename - filename to proceed.
+     * @return same string as passed without '.json' extension.
+     */
     private static String removeJsonExtension(@NonNull String filename) {
         return filename.substring(0, filename.length() - 5);
     }
