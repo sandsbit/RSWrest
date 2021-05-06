@@ -13,11 +13,11 @@ public final class TextParsingResult {
 
     private final long totalNumberOfParsedWords;  // size of 'wordsThatHaveHomoforms'
     private final boolean foundAnyWordsThatHaveHomoforms;  // True if 'wordsThatHaveHomoforms' is not empty
-    private final List<WordParsingResult> wordsThatHaveHomoforms;
+    private final List<ParsedWordInText> wordsThatHaveHomoforms;
 
     private final HomographParser.ParserSettings usedSettings;  // setting that used parser while parsing
 
-    public TextParsingResult(String text, long totalNumberOfParsedWords, List<WordParsingResult> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
+    public TextParsingResult(String text, long totalNumberOfParsedWords, List<ParsedWordInText> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
         this.text = text;
         this.totalNumberOfParsedWords = totalNumberOfParsedWords;
         this.foundAnyWordsThatHaveHomoforms = (totalNumberOfParsedWords != 0);
@@ -25,7 +25,7 @@ public final class TextParsingResult {
         this.usedSettings = usedSettings;
     }
 
-    public TextParsingResult(String text, List<WordParsingResult> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
+    public TextParsingResult(String text, List<ParsedWordInText> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
         this.text = text;
         this.totalNumberOfParsedWords = wordsThatHaveHomoforms.size();
         this.foundAnyWordsThatHaveHomoforms = (totalNumberOfParsedWords != 0);
@@ -45,7 +45,7 @@ public final class TextParsingResult {
         return foundAnyWordsThatHaveHomoforms;
     }
 
-    public List<WordParsingResult> getWordsThatHaveHomoforms() {
+    public List<ParsedWordInText> getWordsThatHaveHomoforms() {
         return wordsThatHaveHomoforms;
     }
 
