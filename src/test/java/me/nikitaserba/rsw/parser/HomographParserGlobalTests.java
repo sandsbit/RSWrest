@@ -41,8 +41,8 @@ public class HomographParserGlobalTests {
     }
 
     @Test
-    @DisplayName("Test parsing words ignoring diacritic")
-    void TestParsingWordsIgnoreDiacritic() {
+    @DisplayName("Test parsing words not ignoring diacritic")
+    void TestParsingWordsNotIgnoreDiacritic() {
         String word = "замок";
         HomographParser.ParserSettings settings = new HomographParser.ParserSettings(false, "ru-RU");
         WordParsingResult result = HomographParser.parseWord(word, settings);
