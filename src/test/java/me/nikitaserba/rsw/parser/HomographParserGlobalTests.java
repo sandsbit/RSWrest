@@ -2,6 +2,8 @@ package me.nikitaserba.rsw.parser;
 
 import manifold.ext.rt.api.Jailbreak;
 import manifold.rt.api.util.Pair;
+import me.nikitaserba.rsw.parser.repsonses.ParsedWordInText;
+import me.nikitaserba.rsw.parser.repsonses.TextParsingResult;
 import me.nikitaserba.rsw.parser.repsonses.WordParsingResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -97,4 +99,46 @@ public class HomographParserGlobalTests {
         assertEquals(expectedResult, parser.splitStringIntoWords(text));
     }
 
+    @Test
+    @DisplayName("Test parsing text using default settings")
+    void TestFindingHomographsInText() {
+        String text = "В поле замок, в нём пЧЕлы, перед ними замо́к";
+        TextParsingResult result = HomographParser.parseText(text);
+
+        List<ParsedWordInText> parsedWordsExpected = new ArrayList<>();
+        parsedWordsExpected.add(new ParsedWordInText("замок",
+                new HashSet<String>(Arrays.asList("за́мок", "замо́к")),
+                parser.defaultSettings,
+                8, 12));
+        parsedWordsExpected.add(new ParsedWordInText("пЧЕлы",
+                new HashSet<String>(Arrays.asList("пчёлы", "пчелы́")),
+                parser.defaultSettings,
+                21, 25));
+        TextParsingResult expectedResult = new TextParsingResult(text, parsedWordsExpected, parser.defaultSettings);
+
+        assertEquals(expectedResult, result);
+
+        assertFalse(HomographParser.parseText("Вот за́мок у пчелы́ хорош!").haveFoundAnyWordsThatHaveHomoforms());
+        assertNull(HomographParser.parseText("Вот за́мок у пчелы́ хорош!").getWordsThatHaveHomoforms());
+    }
+
+    @Test
+    @DisplayName("Test parsing text using not default settings")
+    void TestFindingHomographsInTextNotIgnoreDiacritic() {
+        String text = "В поле замок, в нём пЧЕлы, перед ними замо́к";
+        HomographParser.ParserSettings settings = new HomographParser.ParserSettings(false, "ru-RU");
+        TextParsingResult result = HomographParser.parseText(text, settings);
+
+        List<ParsedWordInText> parsedWordsExpected = new ArrayList<>();
+        parsedWordsExpected.add(new ParsedWordInText("замок",
+                new HashSet<String>(Arrays.asList("за́мок", "замо́к")),
+                settings,
+                8, 12));
+        TextParsingResult expectedResult = new TextParsingResult(text, parsedWordsExpected,
+                settings);
+
+        assertEquals(expectedResult, result);
+
+        assertFalse(HomographParser.parseText("Вот за́мок у пчелы хорош!", settings).haveFoundAnyWordsThatHaveHomoforms());
+    }
 }
