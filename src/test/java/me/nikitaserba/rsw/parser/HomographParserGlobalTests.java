@@ -69,8 +69,8 @@ public class HomographParserGlobalTests {
     @Test
     @DisplayName("Test splitting text into words")
     void TestSplittingTextIntoWords() {
-        String text = " I  don't have any words   in; English.У меня еСТь ёж. Українська мова,та espáñol. ";
-        assert text.length() == 83;
+        String text = " I  don't have any words   in; English.У меня еСТь ёж. Укра́їнська мова,та espáñol. ";
+        assert text.length() == 84;
 
         Map<Pair<Integer, Integer>, String> expectedResult = new HashMap<>(15);
         expectedResult.put(new Pair<>(2, 2), "I");
@@ -84,10 +84,10 @@ public class HomographParserGlobalTests {
         expectedResult.put(new Pair<>(42, 45), "меня");
         expectedResult.put(new Pair<>(47, 50), "еСТь");
         expectedResult.put(new Pair<>(52, 53), "ёж");
-        expectedResult.put(new Pair<>(56, 65), "Українська");
-        expectedResult.put(new Pair<>(67, 70), "мова");
-        expectedResult.put(new Pair<>(72, 73), "та");
-        expectedResult.put(new Pair<>(75, 81), "espáñol");
+        expectedResult.put(new Pair<>(56, 66), "Укра́їнська");
+        expectedResult.put(new Pair<>(68, 71), "мова");
+        expectedResult.put(new Pair<>(73, 74), "та");
+        expectedResult.put(new Pair<>(76, 82), "espáñol");
 
         assertEquals(expectedResult, parser.splitStringIntoWords(text));
     }
