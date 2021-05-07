@@ -309,9 +309,10 @@ public final class HomographParser {
      *
      * @param id - session id.
      * @param text - text to check.
-     * @return TextParsingResult with results of parsing.
+     * @return TextParsingResult instance with results of parsing is key; value is true if result of parsing have
+     *         changed since last time, false otherwise.
      */
-    public static TextParsingResult s_parseText(String id, String text) {
+    public static Pair<TextParsingResult, Boolean> s_parseText(String id, String text) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
