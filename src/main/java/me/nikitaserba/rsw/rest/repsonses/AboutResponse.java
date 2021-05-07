@@ -1,4 +1,4 @@
-package me.nikitaserba.rsw.rest.controllers.repsonses;
+package me.nikitaserba.rsw.rest.repsonses;
 
 import com.google.gson.annotations.SerializedName;
 
