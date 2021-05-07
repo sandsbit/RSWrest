@@ -39,7 +39,7 @@ public final class Session {
     private String word;
     private Map<String, WordParsingResult> wordParsingResultCache;
 
-    public Session(String token) {
+    private Session(String token) {
         this.token = token;
         wordParsingResultCache = new HashMap<>();
     }
