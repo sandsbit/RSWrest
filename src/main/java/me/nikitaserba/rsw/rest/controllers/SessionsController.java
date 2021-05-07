@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SessionsController {
 
+    /**
+     * Creates new Session.
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public SessionCreatedResponse createNewSession() {
