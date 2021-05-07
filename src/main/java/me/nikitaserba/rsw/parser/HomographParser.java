@@ -281,7 +281,7 @@ public final class HomographParser {
     }
 
     /**
-     * Check what words in the text have homoforms.
+     * Check what word has homoforms.
      *
      * Uses settings associated with given session.
      *
@@ -303,7 +303,7 @@ public final class HomographParser {
     }
 
     /**
-     * Check what words in the text have homoforms using default settings.
+     * Check what words in the text have homoforms.
      *
      * Uses settings associated with given session.
      *
