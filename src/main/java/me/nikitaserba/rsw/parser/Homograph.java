@@ -8,6 +8,16 @@ import java.util.Set;
  */
 public final class Homograph {
 
+    /**
+     * This API version should be changed in every version (including beta, e.g.)
+     * where this class is changed.
+     *
+     * The json file that is deserialized SHOULD have the same API. Parsing json
+     * file with not the same API value MAY NOT cause Exception or any other error,
+     * but WILL PROBABLY cause any other unexpected behavior.
+     */
+    public static final int CLASS_API_VERSION = 0;
+
     private final String word;
     private final Set<String> homoforms;
     private final HomographType type;
