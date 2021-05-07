@@ -287,10 +287,19 @@ public final class HomographParser {
      *
      * @param id - session id.
      * @param word - word to check.
-     * @return WordParsingResult instance with results of parsing.
+     * @return WordParsingResult instance with results of parsing is key; value is true if result of parsing have
+     *         changed since last time, false otherwise.
      */
-    public static WordParsingResult s_parseWord(String id, String word) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+    public static Pair<WordParsingResult, Boolean> s_parseWord(String id, String word) {
+        Session session = Session.getByToken(id);
+        WordParsingResult result = session.getWordParsingResultFromCache(word);
+        if (result == null) {
+            result = parseWord(word, session.getSettings());
+            session.addWordParsingResultToCache(word, result);
+        }
+        boolean changed = session.getWord().equals(word);
+        session.setWord(word);
+        return new Pair<>(result, changed);
     }
 
     /**
