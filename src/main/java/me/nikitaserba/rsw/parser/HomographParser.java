@@ -267,7 +267,9 @@ public final class HomographParser {
      * @return session id.
      */
     public static String startSession() {
-        return Session.create().getToken();
+        Session session = Session.create();
+        session.setSettings(defaultSettings);
+        return session.getToken();
     }
 
     /**
