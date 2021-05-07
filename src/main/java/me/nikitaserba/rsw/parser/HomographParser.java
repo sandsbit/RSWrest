@@ -237,9 +237,6 @@ public final class HomographParser {
 
     // ---- SESSION PART ----
 
-    private static List<Map<Long, String>> sessions;  // stores text currently associated with session by its id.
-    private static List<Map<Long, ParserSettings>> settings;  // stores settings associated with session by its id.
-
     /**
      * Start new session.
      *
@@ -248,7 +245,7 @@ public final class HomographParser {
      *
      * @return session id.
      */
-    public static Long startSession() {
+    public static String startSession() {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
@@ -257,7 +254,7 @@ public final class HomographParser {
      *
      * @param id - session id.
      */
-    public static void endSession(Long id) {
+    public static void endSession(String id) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
@@ -267,7 +264,7 @@ public final class HomographParser {
      * @param id - session id.
      * @param settings - new settings.
      */
-    public static void setSessionSettings(Long id, ParserSettings settings) {
+    public static void setSessionSettings(String id, ParserSettings settings) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
@@ -278,7 +275,7 @@ public final class HomographParser {
      * @param id - session id
      * @return settings asscoiated with session with id = `id`
      */
-    public static ParserSettings getSessionSettings(Long id) {
+    public static ParserSettings getSessionSettings(String id) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
@@ -291,7 +288,7 @@ public final class HomographParser {
      * @param word - word to check.
      * @return WordParsingResult instance with results of parsing.
      */
-    public static WordParsingResult s_parseWord(Long id, String word) {
+    public static WordParsingResult s_parseWord(String id, String word) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
@@ -304,7 +301,7 @@ public final class HomographParser {
      * @param text - text to check.
      * @return TextParsingResult with results of parsing.
      */
-    public static TextParsingResult s_parseText(Long id, String text) {
+    public static TextParsingResult s_parseText(String id, String text) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
