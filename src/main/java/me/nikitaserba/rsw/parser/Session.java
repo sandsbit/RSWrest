@@ -17,9 +17,9 @@ public final class Session {
 
     // Time that session exist while it is not accessed.
     // It is NOT guaranteed that session will be removed at that time, but it MIGHT.
-    private static final Duration SESSION_EXPIRE = Duration.ofMinutes(5);
+    public static final Duration SESSION_EXPIRE = Duration.ofMinutes(5);
     // timeout for threads that removes expired sessions
-    private static final Duration RECHECK_EXPIRE_EVERY = Duration.ofMinutes(5);
+    public static final Duration RECHECK_EXPIRE_EVERY = Duration.ofMinutes(5);
 
     private static ConcurrentMap<String, Session> sessions = new ConcurrentHashMap<>();
     private static ConcurrentMap<String, LocalDateTime> sessionLastAccessed = new ConcurrentHashMap<>();
