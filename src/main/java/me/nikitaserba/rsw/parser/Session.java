@@ -95,7 +95,7 @@ public final class Session {
      */
     public static boolean delete(String token) {
         sessionLastAccessed.remove(token);
-        return sessions.remove(token) == null;
+        return sessions.remove(token) != null;
     }
 
     /**
