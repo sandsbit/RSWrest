@@ -322,7 +322,7 @@ public final class HomographParser {
             result = parseWord(word, session.getSettings());
             session.addWordParsingResultToCache(word, result);
         }
-        boolean changed = !session.getWord().equals(word);
+        boolean changed = session.getWord() == null || !session.getWord().equals(word);
 
         if (saveWord)
             session.setWord(word);
