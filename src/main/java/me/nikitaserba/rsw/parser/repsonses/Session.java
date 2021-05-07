@@ -3,6 +3,7 @@ package me.nikitaserba.rsw.parser.repsonses;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.*;
@@ -24,7 +25,14 @@ public final class Session {
             throw new IllegalStateException("Expired sessions cleaner is already started.");
         expiredSessionsCleaner = Executors.newSingleThreadScheduledExecutor();
         expiredSessionsCleaner.scheduleAtFixedRate(() -> {
-
+            Iterator<Map.Entry<String, LocalDateTime>> iterator = sessionLastAccessed.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, LocalDateTime> values = iterator.next();
+                if (Duration.between(values.getValue(), LocalDateTime.now()).compareTo(SESSION_EXPIRE) > 0) {
+                    sessions.remove(values.getKey());
+                    iterator.remove();
+                }
+            }
         }, 0, RECHECK_EXPIRE_EVERY.toSeconds(), TimeUnit.SECONDS);
     }
 
