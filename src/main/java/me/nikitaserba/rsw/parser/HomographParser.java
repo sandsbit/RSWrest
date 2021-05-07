@@ -201,7 +201,7 @@ public final class HomographParser {
      * It's a functional interface that represents method that parses word.
      */
     interface WordParserFunctionalInterface {
-        public WordParsingResult execute(String word, ParserSettings settings);
+        WordParsingResult execute(String word, ParserSettings settings);
     }
 
     /**
@@ -358,9 +358,8 @@ public final class HomographParser {
             return new Pair<>(session.getTextParsingResultCache(), ChangeState.NOT_CHANGED);
 
         session.setText(text);
-        TextParsingResult result = parseTextWithGivenWordParsingMethod(text, session.getSettings(), (word, settings) -> {
-            return parseWordUsingCache(session, word, false).getFirst();
-        });
+        TextParsingResult result = parseTextWithGivenWordParsingMethod(text, session.getSettings(),
+                (word, settings) -> parseWordUsingCache(session, word, false).getFirst());
         session.setTextParsingResultCache(result);
 
         return new Pair<>(result, ChangeState.CHANGED);
