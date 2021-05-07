@@ -25,6 +25,7 @@ import java.util.*;
  */
 public final class HomographParser {
 
+    private HomographParser() {}
 
     // ---- GENERAL PART ----
 
