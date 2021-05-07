@@ -14,7 +14,7 @@ public final class Session {
         String token;
         do {
             token = UUID.randomUUID().toString();
-        } while(sessions.containsKey(token));
+        } while (sessions.containsKey(token));
         Session newSession = new Session(token);
         sessions.put(token, newSession);
 
