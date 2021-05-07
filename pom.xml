@@ -62,7 +62,6 @@
             <groupId>systems.manifold</groupId>
             <artifactId>manifold-ext</artifactId>
             <version>2021.1.12</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
