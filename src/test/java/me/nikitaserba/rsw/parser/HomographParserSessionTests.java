@@ -45,6 +45,9 @@ public class HomographParserSessionTests {
 
         HomographParser.setSessionSettings(id, set1);
         assertEquals(set2, HomographParser.getSessionSettings(id));
+        HomographParser.setSessionSettingToDefault(id);
+        assertNotEquals(set2, HomographParser.getSessionSettings(id));
+        assertEquals(parser.defaultSettings, HomographParser.getSessionSettings(id));
 
         HomographParser.endSession(id);
 

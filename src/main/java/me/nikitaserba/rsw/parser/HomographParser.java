@@ -299,6 +299,20 @@ public final class HomographParser {
     }
 
     /**
+     * Sets setings of sesstion with the given id to default.
+     *
+     * @param id - id of session to process.
+     * @throws InvalidSessionTokenException if there's no sessions with given id.
+     */
+    public static void setSessionSettingToDefault(String id) throws InvalidSessionTokenException {
+        Session session = Session.getByToken(id);
+        if (session != null)
+            session.setSettings(defaultSettings);
+        else
+            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist");
+    }
+
+    /**
      * Get settings associated with session. Returns default settings if there's no
      * settings associated with given session.
      *
