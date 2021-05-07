@@ -9,6 +9,8 @@ public final class AboutResponse {
     private final String version = "v1.0";
     @SerializedName("version_code")
     private final int versionCode = 0;
+    @SerializedName("api_version")
+    private final int apiVersion = 0;
 
     public AboutResponse() {}
 
@@ -22,5 +24,9 @@ public final class AboutResponse {
 
     public int getVersionCode() {
         return versionCode;
+    }
+
+    public int getApiVersion() {
+        return apiVersion;
     }
 }
