@@ -93,6 +93,7 @@ public final class HomographParser {
      * @return same string as passed without '.json' extension.
      */
     private static String removeJsonExtension(@NonNull String filename) {
+        assert filename.endsWith(".json");
         return filename.substring(0, filename.length() - 5);
     }
 
