@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import manifold.rt.api.util.Pair;
 import me.nikitaserba.rsw.parser.repsonses.ParsedWordInText;
+import me.nikitaserba.rsw.parser.repsonses.Session;
 import me.nikitaserba.rsw.parser.repsonses.TextParsingResult;
 import me.nikitaserba.rsw.parser.repsonses.WordParsingResult;
 import org.springframework.core.io.Resource;
@@ -246,7 +247,7 @@ public final class HomographParser {
      * @return session id.
      */
     public static String startSession() {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return Session.create().getToken();
     }
 
     /**
@@ -255,7 +256,7 @@ public final class HomographParser {
      * @param id - session id.
      */
     public static void endSession(String id) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        Session.delete(id);
     }
 
     /**
@@ -265,7 +266,7 @@ public final class HomographParser {
      * @param settings - new settings.
      */
     public static void setSessionSettings(String id, ParserSettings settings) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        Session.getByToken(id).setSettings(settings);
     }
 
     /**
@@ -276,7 +277,7 @@ public final class HomographParser {
      * @return settings asscoiated with session with id = `id`
      */
     public static ParserSettings getSessionSettings(String id) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return Session.getByToken(id).getSettings();
     }
 
     /**
