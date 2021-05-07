@@ -1,6 +1,7 @@
-package me.nikitaserba.rsw.parser.repsonses;
+package me.nikitaserba.rsw.parser;
 
-import me.nikitaserba.rsw.parser.HomographParser;
+import me.nikitaserba.rsw.parser.repsonses.TextParsingResult;
+import me.nikitaserba.rsw.parser.repsonses.WordParsingResult;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
