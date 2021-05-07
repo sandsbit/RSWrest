@@ -314,7 +314,8 @@ public final class HomographParser {
      * @param word - word to check.
      * @param saveWord - if it is true, last parsed word field in session will be updated, otherwise not.
      * @return WordParsingResult instance with results of parsing is key; value contains information if parsing
-     *         result has changed since last request.     */
+     *         result has changed since last request.
+     */
     private static Pair<WordParsingResult, ChangeState> parseWordUsingCache(Session session, String word, boolean saveWord) {
         WordParsingResult result = session.getWordParsingResultFromCache(word);
         if (result == null) {
