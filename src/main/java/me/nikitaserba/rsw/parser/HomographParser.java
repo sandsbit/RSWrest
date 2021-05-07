@@ -198,6 +198,35 @@ public final class HomographParser {
     }
 
     /**
+     * It's a functional interface that represents method that parses word.
+     */
+    interface WordParserFunctionalInterface {
+        public WordParsingResult execute(String word, ParserSettings settings);
+    }
+
+    /**
+     * Parses text using given word parser.
+     *
+     * @param text - text to check.
+     * @param settings - settings to be used by parser.
+     * @param wordParser - function or lambda that will parse words.
+     * @return TextParsingResult with results of parsing.
+     */
+    private static TextParsingResult parseTextWithGivenWordParsingMethod(String text, ParserSettings settings,
+                                                                         WordParserFunctionalInterface wordParser) {
+        Map<Pair<Integer, Integer>, String> words = splitStringIntoWords(text);
+        List<ParsedWordInText> result = new ArrayList<>();
+        words.forEach((pos, word) -> {
+            WordParsingResult wordParsingResult = wordParser.execute(word, settings);
+            if (wordParsingResult.hasHomoforms())
+                result.add(new ParsedWordInText(wordParsingResult, pos.getFirst(), pos.getSecond()));
+        });
+
+        return new TextParsingResult(text, result, settings);
+
+    }
+
+    /**
      * Check what words in the text have homoforms.
      *
      * @param text - text to check.
@@ -205,15 +234,7 @@ public final class HomographParser {
      * @return TextParsingResult with results of parsing.
      */
     public static TextParsingResult parseText(String text, ParserSettings settings) {
-        Map<Pair<Integer, Integer>, String> words = splitStringIntoWords(text);
-        List<ParsedWordInText> result = new ArrayList<>();
-        words.forEach((pos, word) -> {
-            WordParsingResult wordParsingResult = parseWord(word, settings);
-            if (wordParsingResult.hasHomoforms())
-                result.add(new ParsedWordInText(wordParsingResult, pos.getFirst(), pos.getSecond()));
-        });
-
-        return new TextParsingResult(text, result, settings);
+        return parseTextWithGivenWordParsingMethod(text, settings, HomographParser::parseWord);
     }
 
     /**
@@ -280,6 +301,33 @@ public final class HomographParser {
         return Session.getByToken(id).getSettings();
     }
 
+    enum ChangeState {
+        CHANGED,
+        NOT_CHANGED
+    }
+
+    /**
+     * Parses word using cache and settings from given session.
+     *
+     * @param session - session to use.
+     * @param word - word to check.
+     * @param saveWord - if it is true, last parsed word field in session will be updated, otherwise not.
+     * @return WordParsingResult instance with results of parsing is key; value contains information if parsing
+     *         result has changed since last request.     */
+    private static Pair<WordParsingResult, ChangeState> parseWordUsingCache(Session session, String word, boolean saveWord) {
+        WordParsingResult result = session.getWordParsingResultFromCache(word);
+        if (result == null) {
+            result = parseWord(word, session.getSettings());
+            session.addWordParsingResultToCache(word, result);
+        }
+        boolean changed = !session.getWord().equals(word);
+
+        if (saveWord)
+            session.setWord(word);
+
+        return new Pair<>(result, changed ? ChangeState.CHANGED : ChangeState.NOT_CHANGED);
+    }
+
     /**
      * Check what word has homoforms.
      *
@@ -287,19 +335,11 @@ public final class HomographParser {
      *
      * @param id - session id.
      * @param word - word to check.
-     * @return WordParsingResult instance with results of parsing is key; value is true if result of parsing have
-     *         changed since last time, false otherwise.
+     * @return WordParsingResult instance with results of parsing is key; value contains information if parsing
+     *         result has changed since last request.
      */
-    public static Pair<WordParsingResult, Boolean> s_parseWord(String id, String word) {
-        Session session = Session.getByToken(id);
-        WordParsingResult result = session.getWordParsingResultFromCache(word);
-        if (result == null) {
-            result = parseWord(word, session.getSettings());
-            session.addWordParsingResultToCache(word, result);
-        }
-        boolean changed = session.getWord().equals(word);
-        session.setWord(word);
-        return new Pair<>(result, changed);
+    public static Pair<WordParsingResult, ChangeState> s_parseWord(String id, String word) {
+        return parseWordUsingCache(Session.getByToken(id), word, true);
     }
 
     /**
@@ -309,11 +349,21 @@ public final class HomographParser {
      *
      * @param id - session id.
      * @param text - text to check.
-     * @return TextParsingResult instance with results of parsing is key; value is true if result of parsing have
-     *         changed since last time, false otherwise.
+     * @return TextParsingResult instance with results of parsing is key; value contains information if parsing
+     *         result has changed since last request.
      */
-    public static Pair<TextParsingResult, Boolean> s_parseText(String id, String text) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+    public static Pair<TextParsingResult, ChangeState> s_parseText(String id, String text) {
+        Session session = Session.getByToken(id);
+        if (session.getText().equals(text))
+            return new Pair<>(session.getTextParsingResultCache(), ChangeState.NOT_CHANGED);
+
+        session.setText(text);
+        TextParsingResult result = parseTextWithGivenWordParsingMethod(text, session.getSettings(), (word, settings) -> {
+            return parseWordUsingCache(session, word, false).getFirst();
+        });
+        session.setTextParsingResultCache(result);
+
+        return new Pair<>(result, ChangeState.CHANGED);
     }
 
 }
