@@ -1,5 +1,7 @@
 package me.nikitaserba.rsw.parser.repsonses;
 
+import me.nikitaserba.rsw.parser.HomographParser;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -110,6 +112,8 @@ public final class Session {
 
     private final String token;  // it will be used by client to identify session
 
+    private HomographParser.ParserSettings settings;
+
     private String text;  // last text that was parsed in that session
     private TextParsingResult textParsingResultCache; // result of parsing `text`
 
@@ -156,5 +160,13 @@ public final class Session {
 
     public WordParsingResult getWordParsingResultFromCache(String word) {
         return wordParsingResultCache.get(word);
+    }
+
+    public HomographParser.ParserSettings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(HomographParser.ParserSettings settings) {
+        this.settings = settings;
     }
 }
