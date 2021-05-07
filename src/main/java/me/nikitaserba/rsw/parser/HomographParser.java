@@ -280,7 +280,7 @@ public final class HomographParser {
      */
     public static void endSession(String id) throws InvalidSessionTokenException {
         if (!Session.delete(id))
-            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist");
+            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
     }
 
     /**
@@ -295,7 +295,7 @@ public final class HomographParser {
         if (session != null)
             session.setSettings(settings);
         else
-            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist");
+            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
     }
 
     /**
@@ -309,7 +309,7 @@ public final class HomographParser {
         if (session != null)
             session.setSettings(defaultSettings);
         else
-            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist");
+            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
     }
 
     /**
@@ -325,7 +325,7 @@ public final class HomographParser {
         if (session != null)
             return session.getSettings();
         else
-            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist");
+            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
     }
 
     enum ChangeState {
@@ -370,7 +370,7 @@ public final class HomographParser {
     public static Pair<WordParsingResult, ChangeState> s_parseWord(String id, String word) throws InvalidSessionTokenException {
         Session session = Session.getByToken(id);
         if (session == null)
-            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist");
+            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
 
         return parseWordUsingCache(session, word, true);
     }
@@ -389,7 +389,7 @@ public final class HomographParser {
     public static Pair<TextParsingResult, ChangeState> s_parseText(String id, String text) throws InvalidSessionTokenException {
         Session session = Session.getByToken(id);
         if (session == null)
-            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist");
+            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
 
         if (session.getText() != null && session.getText().equals(text))
             return new Pair<>(session.getTextParsingResultCache(), ChangeState.NOT_CHANGED);
