@@ -7,7 +7,7 @@ import me.nikitaserba.rsw.parser.Session;
 import me.nikitaserba.rsw.rest.repsonses.SessionCreatedResponse;
 import me.nikitaserba.rsw.rest.exceptions.IntervalServerErrorException;
 
-import me.nikitaserba.rsw.rest.repsonses.SessionSettingsChangeResponse;
+import me.nikitaserba.rsw.rest.repsonses.SessionSettingsResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,12 +48,12 @@ public class SessionsController {
      */
     @PutMapping(value = "/{id}", consumes = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
-    public SessionSettingsChangeResponse changeAllSettings(
+    public SessionSettingsResponse changeAllSettings(
             @PathVariable String id,
             @RequestBody ParserSettings newSettings
     ) throws InvalidSessionTokenException {
         HomographParser.setSessionSettings(id, newSettings, HomographParser.SessionSettingsNullPolicies.SET_TO_DEFAULT);
-        return new SessionSettingsChangeResponse(HttpStatus.OK.value(), id, HomographParser.getSessionSettings(id));
+        return new SessionSettingsResponse(HttpStatus.OK.value(), id, HomographParser.getSessionSettings(id));
     }
 
     /**
@@ -65,11 +65,20 @@ public class SessionsController {
      */
     @PatchMapping(value = "/{id}", consumes = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
-    public SessionSettingsChangeResponse changeSomeSettings(
+    public SessionSettingsResponse changeSomeSettings(
             @PathVariable String id,
             @RequestBody ParserSettings newSettings
     ) throws InvalidSessionTokenException {
         HomographParser.setSessionSettings(id, newSettings, HomographParser.SessionSettingsNullPolicies.DONT_CHANGE);
-        return new SessionSettingsChangeResponse(HttpStatus.OK.value(), id, HomographParser.getSessionSettings(id));
+        return new SessionSettingsResponse(HttpStatus.OK.value(), id, HomographParser.getSessionSettings(id));
+    }
+
+    /**
+     * Return settings associated with given session.
+     */
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public SessionSettingsResponse getSessionSettings(@PathVariable String id) throws InvalidSessionTokenException {
+        return new SessionSettingsResponse(HttpStatus.OK.value(), id, HomographParser.getSessionSettings(id));
     }
 }
