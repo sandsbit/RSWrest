@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class SessionsController {
 
     /**
-     * Creates new session, new session id and its expire time are returnes.
+     * Creates new session, new session id and its expire time are returns.
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
