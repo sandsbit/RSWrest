@@ -2,10 +2,12 @@ package me.nikitaserba.rsw.rest.exceptions;
 
 import com.google.gson.Gson;
 import me.nikitaserba.rsw.parser.exceptions.InvalidSessionTokenException;
+import me.nikitaserba.rsw.parser.exceptions.UnknownJsonFieldException;
 import me.nikitaserba.rsw.rest.repsonses.ErrorResponse;
 import me.nikitaserba.rsw.rest.repsonses.ErrorResponseWithId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +30,14 @@ public class ExceptionsControllerAdvice {
     public String notFoundHandler(InvalidSessionTokenException ex) {
         ErrorResponseWithId error = new ErrorResponseWithId(HttpStatus.NOT_FOUND.value(), "NO_SUCH_SESSION", ex.getMessage(), ex.getId());
         // why don't just return ErrorResponseWithId? because then Spring will replace json with standard 404 response and I don't know to fix it
+        return gson.toJson(error);
+    }
+
+    @ExceptionHandler(UnknownJsonFieldException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseBody
+    public String unknownJsonField(UnknownJsonFieldException ex) {
+        ErrorResponse error = new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(), "UNKNOWN_JSON_FIELD", ex.getMessage());
         return gson.toJson(error);
     }
 
