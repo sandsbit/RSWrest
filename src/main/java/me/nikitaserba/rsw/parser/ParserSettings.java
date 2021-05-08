@@ -7,6 +7,8 @@ public final class ParserSettings {
     private boolean ignoreDiacritic;
     private String languageCode;
 
+    public ParserSettings() {}
+
     public ParserSettings(boolean ignoreDiacritic, String languageCode) {
         this.ignoreDiacritic = ignoreDiacritic;
         this.languageCode = languageCode;
