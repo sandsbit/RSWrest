@@ -4,7 +4,8 @@ import java.util.Objects;
 
 public final class ParserSettings {
 
-    private boolean ignoreDiacritic;
+    // ALL fields MUST be classes (not primitives), so they can be NULL
+    private Boolean ignoreDiacritic;
     private String languageCode;
 
     public ParserSettings() {}

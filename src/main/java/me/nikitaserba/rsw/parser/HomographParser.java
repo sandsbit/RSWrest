@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -260,6 +261,65 @@ public final class HomographParser {
             throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
     }
 
+    private interface SessionSettingsNullProcessor {
+        /**
+         * Process all null fields in parser settings class instance.
+         *
+         * @param newSettings - settings to process.
+         * @param oldSettings - old settings of current session.
+         * @return settings where all null fields are proceeded according to chosen null policy.
+         */
+        ParserSettings process(ParserSettings newSettings, ParserSettings oldSettings);
+    }
+
+    public enum SessionSettingsNullPolicies implements SessionSettingsNullProcessor {
+        DONT_CHANGE {
+            @Override
+            public ParserSettings process(ParserSettings newSettings, ParserSettings oldSettings) {
+                Field[] fields = newSettings.getClass().getDeclaredFields();
+                for (Field field : fields) {
+                    field.setAccessible(true);
+                    try {
+                        if (field.get(newSettings) == null) {
+                            field.set(newSettings, field.get(oldSettings));
+                        }
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                return newSettings;
+            }
+        },
+        SET_TO_DEFAULT {
+            @Override
+            public ParserSettings process(ParserSettings newSettings, ParserSettings oldSettings) {
+                return DONT_CHANGE.process(newSettings, defaultSettings);
+            }
+        },
+        SET_TO_NULL {
+            @Override
+            public ParserSettings process(ParserSettings newSettings, ParserSettings oldSettings) {
+                return newSettings;
+            }
+        }
+    }
+
+    /**
+     * Set or change settings associated with session.
+     *
+     * @param id - session id.
+     * @param settings - new settings.
+     * @param nullPolicy - tells what to do with NULL fields in `settings`.
+     * @throws InvalidSessionTokenException if there's no sessions with given id.
+     */
+    public static void setSessionSettings(String id, ParserSettings settings, SessionSettingsNullPolicies nullPolicy) throws InvalidSessionTokenException {
+        Session session = Session.getByToken(id);
+        if (session != null)
+            session.setSettings(nullPolicy.process(settings, session.getSettings()));
+        else
+            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
+    }
+
     /**
      * Set or change settings associated with session.
      *
@@ -268,11 +328,7 @@ public final class HomographParser {
      * @throws InvalidSessionTokenException if there's no sessions with given id.
      */
     public static void setSessionSettings(String id, ParserSettings settings) throws InvalidSessionTokenException {
-        Session session = Session.getByToken(id);
-        if (session != null)
-            session.setSettings(settings);
-        else
-            throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
+        setSessionSettings(id, settings, SessionSettingsNullPolicies.SET_TO_NULL);
     }
 
     /**
