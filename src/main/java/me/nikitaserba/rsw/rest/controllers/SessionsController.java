@@ -6,8 +6,8 @@ import me.nikitaserba.rsw.parser.Session;
 import me.nikitaserba.rsw.rest.repsonses.SessionCreatedResponse;
 import me.nikitaserba.rsw.rest.exceptions.IntervalServerErrorException;
 
-import me.nikitaserba.rsw.rest.repsonses.SessionDeletedResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/sessions")
@@ -31,9 +31,9 @@ public class SessionsController {
      * Deletes session by its id.
      */
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public SessionDeletedResponse endSession(@PathVariable String id) throws InvalidSessionTokenException {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Void> endSession(@PathVariable String id) throws InvalidSessionTokenException {
         HomographParser.endSession(id);
-        return new SessionDeletedResponse(HttpStatus.OK.value(), id);
+        return ResponseEntity.noContent().build();
     }
 }
