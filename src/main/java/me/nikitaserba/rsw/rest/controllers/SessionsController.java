@@ -1,7 +1,7 @@
 package me.nikitaserba.rsw.rest.controllers;
 
 import me.nikitaserba.rsw.parser.HomographParser;
-import me.nikitaserba.rsw.parser.InvalidSessionTokenException;
+import me.nikitaserba.rsw.parser.exceptions.InvalidSessionTokenException;
 import me.nikitaserba.rsw.parser.Session;
 import me.nikitaserba.rsw.rest.repsonses.SessionCreatedResponse;
 import me.nikitaserba.rsw.rest.exceptions.IntervalServerErrorException;

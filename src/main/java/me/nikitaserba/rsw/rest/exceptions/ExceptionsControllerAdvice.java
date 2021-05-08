@@ -1,7 +1,7 @@
 package me.nikitaserba.rsw.rest.exceptions;
 
 import com.google.gson.Gson;
-import me.nikitaserba.rsw.parser.InvalidSessionTokenException;
+import me.nikitaserba.rsw.parser.exceptions.InvalidSessionTokenException;
 import me.nikitaserba.rsw.rest.repsonses.ErrorResponse;
 import me.nikitaserba.rsw.rest.repsonses.ErrorResponseWithId;
 import org.springframework.beans.factory.annotation.Autowired;

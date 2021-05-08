@@ -3,6 +3,7 @@ package me.nikitaserba.rsw.parser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import manifold.rt.api.util.Pair;
+import me.nikitaserba.rsw.parser.exceptions.InvalidSessionTokenException;
 import me.nikitaserba.rsw.parser.repsonses.ParsedWordInText;
 import me.nikitaserba.rsw.parser.repsonses.TextParsingResult;
 import me.nikitaserba.rsw.parser.repsonses.WordParsingResult;

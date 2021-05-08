@@ -1,4 +1,4 @@
-package me.nikitaserba.rsw.parser;
+package me.nikitaserba.rsw.parser.exceptions;
 
 public class InvalidSessionTokenException extends Exception {
 
