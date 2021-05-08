@@ -1,6 +1,6 @@
 package me.nikitaserba.rsw.parser.repsonses;
 
-import me.nikitaserba.rsw.parser.HomographParser;
+import me.nikitaserba.rsw.parser.ParserSettings;
 
 import java.util.Objects;
 import java.util.Set;
@@ -13,7 +13,7 @@ public class WordParsingResult {
     private final String parsedWord;  // original word that was checked
     private final boolean wordHasHomoforms;
     private final Set<String> possibleHomoforms;
-    private final HomographParser.ParserSettings usedSettings;  // setting that used parser while parsing
+    private final ParserSettings usedSettings;  // setting that used parser while parsing
 
     /**
      * Create result of parsing a word.
@@ -23,7 +23,7 @@ public class WordParsingResult {
      * @param possibleHomoforms - possible homoforms of the word. must be null if `hasHomoforms` is false.
      * @param usedSettings - settings used while parsing.
      */
-    public WordParsingResult(String parsedWord, boolean wordHasHomoforms, Set<String> possibleHomoforms, HomographParser.ParserSettings usedSettings) {
+    public WordParsingResult(String parsedWord, boolean wordHasHomoforms, Set<String> possibleHomoforms, ParserSettings usedSettings) {
         this.parsedWord = parsedWord;
         this.wordHasHomoforms = wordHasHomoforms;
         this.possibleHomoforms = possibleHomoforms;
@@ -42,7 +42,7 @@ public class WordParsingResult {
         return possibleHomoforms;
     }
 
-    public HomographParser.ParserSettings getUsedSettings() {
+    public ParserSettings getUsedSettings() {
         return usedSettings;
     }
 

@@ -113,7 +113,7 @@ public final class Session {
 
     private final String token;  // it will be used by client to identify session
 
-    private HomographParser.ParserSettings settings;
+    private ParserSettings settings;
 
     private String text;  // last text that was parsed in that session
     private TextParsingResult textParsingResultCache; // result of parsing `text`
@@ -163,11 +163,11 @@ public final class Session {
         return wordParsingResultCache.get(word);
     }
 
-    public HomographParser.ParserSettings getSettings() {
+    public ParserSettings getSettings() {
         return settings;
     }
 
-    public void setSettings(HomographParser.ParserSettings settings) {
+    public void setSettings(ParserSettings settings) {
         this.settings = settings;
     }
 }

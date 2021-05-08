@@ -1,6 +1,6 @@
 package me.nikitaserba.rsw.parser.repsonses;
 
-import me.nikitaserba.rsw.parser.HomographParser;
+import me.nikitaserba.rsw.parser.ParserSettings;
 
 import java.util.Objects;
 import java.util.Set;
@@ -25,7 +25,7 @@ public class ParsedWordInText extends WordParsingResult {
      * @param endPosition - position of the last character of the word in parsed text.
      */
     public ParsedWordInText(String parsedWord, Set<String> possibleHomoforms,
-                            HomographParser.ParserSettings usedSettings, int beginPosition, int endPosition) {
+                            ParserSettings usedSettings, int beginPosition, int endPosition) {
         super(parsedWord, true, possibleHomoforms, usedSettings);
         this.beginPosition = beginPosition;
         this.endPosition = endPosition;

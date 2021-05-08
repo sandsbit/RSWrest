@@ -44,7 +44,7 @@ public class HomographParserGlobalTests {
     @DisplayName("Test parsing words not ignoring diacritic")
     void TestParsingWordsNotIgnoreDiacritic() {
         String word = "замок";
-        HomographParser.ParserSettings settings = new HomographParser.ParserSettings(false, "ru-RU");
+        ParserSettings settings = new ParserSettings(false, "ru-RU");
         WordParsingResult result = HomographParser.parseWord(word, settings);
 
         WordParsingResult expected = new WordParsingResult(word, true,
@@ -59,7 +59,7 @@ public class HomographParserGlobalTests {
     @Test
     @DisplayName("Test parsing words with wrong language")
     void TestParsingWordsWrongLanguage() {
-        HomographParser.ParserSettings settings = new HomographParser.ParserSettings(false, "ru-US");
+        ParserSettings settings = new ParserSettings(false, "ru-US");
 
         assertFalse(HomographParser.parseWord("замок", settings).hasHomoforms());
         assertFalse(HomographParser.parseWord("капибара", settings).hasHomoforms());
@@ -119,7 +119,7 @@ public class HomographParserGlobalTests {
     @DisplayName("Test parsing text using not default settings")
     void TestFindingHomographsInTextNotIgnoreDiacritic() {
         String text = "В поле замок, в нём пЧЕлы, перед ними замо́к";
-        HomographParser.ParserSettings settings = new HomographParser.ParserSettings(false, "ru-RU");
+        ParserSettings settings = new ParserSettings(false, "ru-RU");
         TextParsingResult result = HomographParser.parseText(text, settings);
 
         List<ParsedWordInText> parsedWordsExpected = new ArrayList<>();

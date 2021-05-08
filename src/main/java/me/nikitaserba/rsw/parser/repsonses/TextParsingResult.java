@@ -1,6 +1,6 @@
 package me.nikitaserba.rsw.parser.repsonses;
 
-import me.nikitaserba.rsw.parser.HomographParser;
+import me.nikitaserba.rsw.parser.ParserSettings;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +16,7 @@ public final class TextParsingResult {
     private final boolean foundAnyWordsThatHaveHomoforms;  // True if 'wordsThatHaveHomoforms' is not empty
     private final List<ParsedWordInText> wordsThatHaveHomoforms;
 
-    private final HomographParser.ParserSettings usedSettings;  // setting that used parser while parsing
+    private final ParserSettings usedSettings;  // setting that used parser while parsing
 
     /**
      * Create new result of parsing text.
@@ -27,7 +27,7 @@ public final class TextParsingResult {
      *                                 that have homoforms
      * @param usedSettings - settings used while parsing
      */
-    public TextParsingResult(String text, long totalNumberOfParsedWords, List<ParsedWordInText> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
+    public TextParsingResult(String text, long totalNumberOfParsedWords, List<ParsedWordInText> wordsThatHaveHomoforms, ParserSettings usedSettings) {
         this.text = text;
         this.totalNumberOfParsedWords = totalNumberOfParsedWords;
         this.foundAnyWordsThatHaveHomoforms = (totalNumberOfParsedWords != 0);
@@ -45,7 +45,7 @@ public final class TextParsingResult {
      *                                 that have homoforms
      * @param usedSettings - settings used while parsing will
      */
-    public TextParsingResult(String text, List<ParsedWordInText> wordsThatHaveHomoforms, HomographParser.ParserSettings usedSettings) {
+    public TextParsingResult(String text, List<ParsedWordInText> wordsThatHaveHomoforms, ParserSettings usedSettings) {
         this.text = text;
         this.totalNumberOfParsedWords = wordsThatHaveHomoforms.size();
         this.foundAnyWordsThatHaveHomoforms = (totalNumberOfParsedWords != 0);
@@ -69,7 +69,7 @@ public final class TextParsingResult {
         return wordsThatHaveHomoforms;
     }
 
-    public HomographParser.ParserSettings getUsedSettings() {
+    public ParserSettings getUsedSettings() {
         return usedSettings;
     }
 

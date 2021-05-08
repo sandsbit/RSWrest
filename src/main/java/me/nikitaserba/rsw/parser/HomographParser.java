@@ -29,30 +29,6 @@ public final class HomographParser {
 
     // ---- GENERAL PART ----
 
-    public static final class ParserSettings {
-
-        public boolean ignoreDiacritic;
-        public String languageCode;
-
-        public ParserSettings(boolean ignoreDiacritic, String languageCode) {
-            this.ignoreDiacritic = ignoreDiacritic;
-            this.languageCode = languageCode;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            ParserSettings that = (ParserSettings) o;
-            return ignoreDiacritic == that.ignoreDiacritic && languageCode.equals(that.languageCode);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(ignoreDiacritic, languageCode);
-        }
-    }
-
     // Settings that will be used when user don't pass his own
     public static final ParserSettings defaultSettings = new ParserSettings(true,"ru-RU");  // TODO: Read defaults from file
 
@@ -147,10 +123,10 @@ public final class HomographParser {
 
         finding_homoforms:
         {
-            Homograph recordInDictionary = findWordInDictionary(wordLowered, homographs.get(settings.languageCode));
+            Homograph recordInDictionary = findWordInDictionary(wordLowered, homographs.get(settings.getLanguageCode()));
             if (recordInDictionary == null)
                 break finding_homoforms;
-            if (!settings.ignoreDiacritic && recordInDictionary.isIgnoringDiacritic())
+            if (!settings.isIgnoringDiacritic() && recordInDictionary.isIgnoringDiacritic())
                 break finding_homoforms;
             if (!mayBeProperName && recordInDictionary.getType() == HomographType.PROPER_NAME)
                 break finding_homoforms;

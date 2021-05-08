@@ -41,13 +41,13 @@ public class DataClassesTests {
     }
 
     @Test
-    @DisplayName("Test equal() and hashCode() of HomographParser.ParserSettings class")
+    @DisplayName("Test equal() and hashCode() of ParserSettings class")
     void TestParserSettingsClass() {
-        HomographParser.ParserSettings eq1 = new HomographParser.ParserSettings(true, "en-US");
-        HomographParser.ParserSettings eq2 = new HomographParser.ParserSettings(true, "en-US");
+        ParserSettings eq1 = new ParserSettings(true, "en-US");
+        ParserSettings eq2 = new ParserSettings(true, "en-US");
 
-        HomographParser.ParserSettings diff1 = new HomographParser.ParserSettings(false, "en-US");
-        HomographParser.ParserSettings diff2 = new HomographParser.ParserSettings(true, "en-EN");
+        ParserSettings diff1 = new ParserSettings(false, "en-US");
+        ParserSettings diff2 = new ParserSettings(true, "en-EN");
 
         assert eq1 != eq2;
         assertEquals(eq1, eq2);
@@ -59,9 +59,9 @@ public class DataClassesTests {
     @Test
     @DisplayName("Test equal() and hashCode() of WordParsingResult class")
     void TestWordParsingResultClass() {
-        HomographParser.ParserSettings set1 = new HomographParser.ParserSettings(true, "en-US");
-        HomographParser.ParserSettings set2 = new HomographParser.ParserSettings(true, "en-US");
-        HomographParser.ParserSettings set3 = new HomographParser.ParserSettings(false, "en-US");
+        ParserSettings set1 = new ParserSettings(true, "en-US");
+        ParserSettings set2 = new ParserSettings(true, "en-US");
+        ParserSettings set3 = new ParserSettings(false, "en-US");
         assert set1 != set2;
         assert set1.equals(set2);
         assert !set1.equals(set3);
@@ -92,9 +92,9 @@ public class DataClassesTests {
     @Test
     @DisplayName("Test equal() and hashCode() of ParsedWordInText class")
     void TestParsedWordInTextClass() {
-        HomographParser.ParserSettings set1 = new HomographParser.ParserSettings(true, "en-US");
-        HomographParser.ParserSettings set2 = new HomographParser.ParserSettings(true, "en-US");
-        HomographParser.ParserSettings set3 = new HomographParser.ParserSettings(false, "en-US");
+        ParserSettings set1 = new ParserSettings(true, "en-US");
+        ParserSettings set2 = new ParserSettings(true, "en-US");
+        ParserSettings set3 = new ParserSettings(false, "en-US");
         assert set1 != set2;
         assert set1.equals(set2);
         assert !set1.equals(set3);
@@ -128,9 +128,9 @@ public class DataClassesTests {
     @Test
     @DisplayName("Test constructor, equal() and hashCode() of TextParsingResult class")
     void TestTextParsingResultClass() {
-        HomographParser.ParserSettings set1 = new HomographParser.ParserSettings(true, "en-US");
-        HomographParser.ParserSettings set2 = new HomographParser.ParserSettings(true, "en-US");
-        HomographParser.ParserSettings set3 = new HomographParser.ParserSettings(false, "en-US");
+        ParserSettings set1 = new ParserSettings(true, "en-US");
+        ParserSettings set2 = new ParserSettings(true, "en-US");
+        ParserSettings set3 = new ParserSettings(false, "en-US");
         assert set1 != set2;
         assert set1.equals(set2);
         assert !set1.equals(set3);

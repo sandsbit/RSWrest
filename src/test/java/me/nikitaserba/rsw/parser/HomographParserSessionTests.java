@@ -24,8 +24,8 @@ public class HomographParserSessionTests {
 
         assertSame(session, Session.getByToken(session.getToken()));
 
-        HomographParser.ParserSettings set1 = new HomographParser.ParserSettings(true, "en-US");
-        HomographParser.ParserSettings set2 = new HomographParser.ParserSettings(true, "en-US");
+        ParserSettings set1 = new ParserSettings(true, "en-US");
+        ParserSettings set2 = new ParserSettings(true, "en-US");
 
         session.setSettings(set1);
         assertEquals(set2, session.getSettings());
@@ -40,8 +40,8 @@ public class HomographParserSessionTests {
         String id = HomographParser.startSession();
         assertNotNull(id);
 
-        HomographParser.ParserSettings set1 = new HomographParser.ParserSettings(true, "en-US");
-        HomographParser.ParserSettings set2 = new HomographParser.ParserSettings(true, "en-US");
+        ParserSettings set1 = new ParserSettings(true, "en-US");
+        ParserSettings set2 = new ParserSettings(true, "en-US");
 
         HomographParser.setSessionSettings(id, set1);
         assertEquals(set2, HomographParser.getSessionSettings(id));
@@ -94,7 +94,7 @@ public class HomographParserSessionTests {
         String sessionId = HomographParser.startSession();
         String word = "замок";
 
-        HomographParser.ParserSettings settings = new HomographParser.ParserSettings(false, "ru-RU");
+        ParserSettings settings = new ParserSettings(false, "ru-RU");
         HomographParser.setSessionSettings(sessionId, settings);
 
         Pair<WordParsingResult, HomographParser.ChangeState> result = HomographParser.s_parseWord(sessionId, word);
@@ -117,7 +117,7 @@ public class HomographParserSessionTests {
     void TestParsingWordsWrongLanguage() throws InvalidSessionTokenException {
         String sessionId = HomographParser.startSession();
 
-        HomographParser.ParserSettings settings = new HomographParser.ParserSettings(false, "ru-US");
+        ParserSettings settings = new ParserSettings(false, "ru-US");
         HomographParser.setSessionSettings(sessionId, settings);
 
         assertFalse(HomographParser.s_parseWord(sessionId, "замок").getFirst().hasHomoforms());
@@ -177,7 +177,7 @@ public class HomographParserSessionTests {
 
         String text = "В поле замок, в нём пЧЕлы, перед ними замо́к";
 
-        HomographParser.ParserSettings settings = new HomographParser.ParserSettings(false, "ru-RU");
+        ParserSettings settings = new ParserSettings(false, "ru-RU");
         HomographParser.setSessionSettings(sessionId, settings);
 
         Pair<TextParsingResult, HomographParser.ChangeState> result = HomographParser.s_parseText(sessionId, text);
