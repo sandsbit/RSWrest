@@ -275,7 +275,8 @@ public final class HomographParser {
     public enum SessionSettingsNullPolicies implements SessionSettingsNullProcessor {
         DONT_CHANGE {
             @Override
-            public ParserSettings process(ParserSettings newSettings, ParserSettings oldSettings) {
+            public ParserSettings process(ParserSettings settings, ParserSettings oldSettings) {
+                ParserSettings newSettings = settings.clone();
                 Field[] fields = newSettings.getClass().getDeclaredFields();
                 for (Field field : fields) {
                     field.setAccessible(true);
