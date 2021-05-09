@@ -5,9 +5,9 @@ import me.nikitaserba.rsw.parser.exceptions.InvalidSessionTokenException;
 import me.nikitaserba.rsw.parser.exceptions.UnknownJsonFieldException;
 import me.nikitaserba.rsw.rest.repsonses.ErrorResponse;
 import me.nikitaserba.rsw.rest.repsonses.ErrorResponseWithId;
+import me.nikitaserba.rsw.utils.json.InvalidClassException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,6 +38,14 @@ public class ExceptionsControllerAdvice {
     @ResponseBody
     public String unknownJsonField(UnknownJsonFieldException ex) {
         ErrorResponse error = new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(), "UNKNOWN_JSON_FIELD", ex.getMessage());
+        return gson.toJson(error);
+    }
+
+    @ExceptionHandler(InvalidClassException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public String invalidClass(InvalidClassException ex) {
+        ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "JSON_PARSING_ERROR", ex.getMessage());
         return gson.toJson(error);
     }
 
