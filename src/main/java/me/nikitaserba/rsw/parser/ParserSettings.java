@@ -30,7 +30,11 @@ public final class ParserSettings implements Cloneable {
 
     @Override
     protected ParserSettings clone() {
-        return new ParserSettings(ignoreDiacritic, languageCode);
+        try {
+            return (ParserSettings) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new Error(e);
+        }
     }
 
     public Boolean isIgnoringDiacritic() {
