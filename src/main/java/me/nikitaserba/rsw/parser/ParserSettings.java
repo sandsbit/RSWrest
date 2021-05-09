@@ -2,7 +2,7 @@ package me.nikitaserba.rsw.parser;
 
 import java.util.Objects;
 
-public final class ParserSettings {
+public final class ParserSettings implements Cloneable {
 
     // ALL fields MUST be classes (not primitives), so they can be NULL
     private Boolean ignoreDiacritic;
@@ -10,7 +10,7 @@ public final class ParserSettings {
 
     public ParserSettings() {}
 
-    public ParserSettings(boolean ignoreDiacritic, String languageCode) {
+    public ParserSettings(Boolean ignoreDiacritic, String languageCode) {
         this.ignoreDiacritic = ignoreDiacritic;
         this.languageCode = languageCode;
     }
@@ -28,7 +28,12 @@ public final class ParserSettings {
         return Objects.hash(ignoreDiacritic, languageCode);
     }
 
-    public boolean isIgnoringDiacritic() {
+    @Override
+    protected ParserSettings clone() {
+        return new ParserSettings(ignoreDiacritic, languageCode);
+    }
+
+    public Boolean isIgnoringDiacritic() {
         return ignoreDiacritic;
     }
 
