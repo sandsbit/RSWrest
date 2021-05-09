@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class DataClassesEqualityTests {
     @Test
     @DisplayName("Test equal() and hashCode() of Language class")
-    void TestLanguageClass() {
+    void testLanguageClass() {
         Language eq1 = new Language("Russian", "ru-RU");
         Language eq2 = new Language("Russian (Russia)", "ru-RU");
 

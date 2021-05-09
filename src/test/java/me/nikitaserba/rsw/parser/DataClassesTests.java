@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DataClassesTests {
     @Test
     @DisplayName("Test equal() and hashCode() of Homograph class")
-    void TestHomographClass() {
+    void testHomographClass() {
         Homograph eq1 = new Homograph("сосиска", new HashSet<>(Arrays.asList("сОсиска", "сосИска")),
                 HomographType.DIFFERENT_PART_OF_SPEECH, true);
         Homograph eq2 = new Homograph("сосиска", new HashSet<>(Arrays.asList("сосИска", "сОсиска")),
@@ -42,7 +42,7 @@ public class DataClassesTests {
 
     @Test
     @DisplayName("Test equal() and hashCode() of ParserSettings class")
-    void TestParserSettingsClass() {
+    void testParserSettingsClass() {
         ParserSettings eq1 = new ParserSettings(true, "en-US");
         ParserSettings eq2 = new ParserSettings(true, "en-US");
 
@@ -58,7 +58,7 @@ public class DataClassesTests {
 
     @Test
     @DisplayName("Test equal() and hashCode() of WordParsingResult class")
-    void TestWordParsingResultClass() {
+    void testWordParsingResultClass() {
         ParserSettings set1 = new ParserSettings(true, "en-US");
         ParserSettings set2 = new ParserSettings(true, "en-US");
         ParserSettings set3 = new ParserSettings(false, "en-US");
@@ -91,7 +91,7 @@ public class DataClassesTests {
 
     @Test
     @DisplayName("Test equal() and hashCode() of ParsedWordInText class")
-    void TestParsedWordInTextClass() {
+    void testParsedWordInTextClass() {
         ParserSettings set1 = new ParserSettings(true, "en-US");
         ParserSettings set2 = new ParserSettings(true, "en-US");
         ParserSettings set3 = new ParserSettings(false, "en-US");
@@ -127,7 +127,7 @@ public class DataClassesTests {
 
     @Test
     @DisplayName("Test constructor, equal() and hashCode() of TextParsingResult class")
-    void TestTextParsingResultClass() {
+    void testTextParsingResultClass() {
         ParserSettings set1 = new ParserSettings(true, "en-US");
         ParserSettings set2 = new ParserSettings(true, "en-US");
         ParserSettings set3 = new ParserSettings(false, "en-US");

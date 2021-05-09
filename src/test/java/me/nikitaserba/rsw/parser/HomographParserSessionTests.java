@@ -19,7 +19,7 @@ public class HomographParserSessionTests {
 
     @Test
     @DisplayName("Test creating, changing, getting and deleting session")
-    void TestSessions() {
+    void testSessions() {
         Session session = Session.create();
         assertNotNull(session);
 
@@ -37,7 +37,7 @@ public class HomographParserSessionTests {
 
     @Test
     @DisplayName("Test creating, changing, getting and deleting session from HomographParser")
-    void TestSessionsHomographParser() throws InvalidSessionTokenException {
+    void testSessionsHomographParser() throws InvalidSessionTokenException {
         String id = HomographParser.startSession();
         assertNotNull(id);
 
@@ -59,7 +59,7 @@ public class HomographParserSessionTests {
 
     @Test
     @DisplayName("Test null policies in method that sets session settings")
-    void TestSessionSettingsNullPolicies() throws InvalidSessionTokenException {
+    void testSessionSettingsNullPolicies() throws InvalidSessionTokenException {
         String id = HomographParser.startSession();
         assertNotNull(id);
 
@@ -82,7 +82,7 @@ public class HomographParserSessionTests {
 
     @Test
     @DisplayName("Test parsing words with default settings")
-    void TestParsingWordsDefaultSettings() throws InvalidSessionTokenException {
+    void testParsingWordsDefaultSettings() throws InvalidSessionTokenException {
         String sessionId = HomographParser.startSession();
         String word = "пчелы";
         WordParsingResultSession result = HomographParser.s_parseWord(sessionId, word);
@@ -114,7 +114,7 @@ public class HomographParserSessionTests {
 
     @Test
     @DisplayName("Test parsing words not ignoring diacritic")
-    void TestParsingWordsNotIgnoreDiacritic() throws InvalidSessionTokenException {
+    void testParsingWordsNotIgnoreDiacritic() throws InvalidSessionTokenException {
         String sessionId = HomographParser.startSession();
         String word = "замок";
 
@@ -138,7 +138,7 @@ public class HomographParserSessionTests {
 
     @Test
     @DisplayName("Test parsing words with wrong language")
-    void TestParsingWordsWrongLanguage() throws InvalidSessionTokenException {
+    void testParsingWordsWrongLanguage() throws InvalidSessionTokenException {
         String sessionId = HomographParser.startSession();
 
         ParserSettings settings = new ParserSettings(false, "ru-US");
@@ -153,7 +153,7 @@ public class HomographParserSessionTests {
 
     @Test
     @DisplayName("Test parsing text using default settings")
-    void TestFindingHomographsInText() throws InvalidSessionTokenException {
+    void testFindingHomographsInText() throws InvalidSessionTokenException {
         String sessionId = HomographParser.startSession();
 
         String text = "В поле замок, в нём пЧЕлы, перед ними замо́к";
@@ -196,7 +196,7 @@ public class HomographParserSessionTests {
 
     @Test
     @DisplayName("Test parsing text using not default settings")
-    void TestFindingHomographsInTextNotIgnoreDiacritic() throws InvalidSessionTokenException {
+    void testFindingHomographsInTextNotIgnoreDiacritic() throws InvalidSessionTokenException {
         String sessionId = HomographParser.startSession();
 
         String text = "В поле замок, в нём пЧЕлы, перед ними замо́к";
