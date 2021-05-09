@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Class that stores result of parsing text by `HomographParser`.
  */
-public final class TextParsingResult extends ParsingResult {
+public class TextParsingResult extends ParsingResult {
 
     private final String text;  // original text that was checked
 
