@@ -44,9 +44,8 @@ public class ExceptionsControllerAdvice {
     @ExceptionHandler(InvalidClassException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public String invalidClass(InvalidClassException ex) {
-        ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "JSON_PARSING_ERROR", ex.getMessage());
-        return gson.toJson(error);
+    public ErrorResponse invalidClass(InvalidClassException ex) {
+        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "JSON_PARSING_ERROR", ex.getMessage());
     }
 
 }
