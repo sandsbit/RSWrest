@@ -8,26 +8,25 @@ import java.util.Set;
 /**
  * Class that stores result of parsing word by `HomographParser`.
  */
-public class WordParsingResult {
+public class WordParsingResult extends ParsingResult {
 
     private final String parsedWord;  // original word that was checked
-    private final boolean wordHasHomoforms;
+    private final boolean hasHomoforms;
     private final Set<String> possibleHomoforms;
-    private final ParserSettings usedSettings;  // setting that used parser while parsing
 
     /**
      * Create result of parsing a word.
      *
      * @param parsedWord - word that was parsed.
-     * @param wordHasHomoforms - if the form have any homoforms depending on used setting.
+     * @param hasHomoforms - if the form have any homoforms depending on used setting.
      * @param possibleHomoforms - possible homoforms of the word. must be null if `hasHomoforms` is false.
      * @param usedSettings - settings used while parsing.
      */
-    public WordParsingResult(String parsedWord, boolean wordHasHomoforms, Set<String> possibleHomoforms, ParserSettings usedSettings) {
+    public WordParsingResult(String parsedWord, boolean hasHomoforms, Set<String> possibleHomoforms, ParserSettings usedSettings) {
+        super(usedSettings);
         this.parsedWord = parsedWord;
-        this.wordHasHomoforms = wordHasHomoforms;
+        this.hasHomoforms = hasHomoforms;
         this.possibleHomoforms = possibleHomoforms;
-        this.usedSettings = usedSettings;
     }
 
     public String getParsedWord() {
@@ -35,15 +34,11 @@ public class WordParsingResult {
     }
 
     public boolean hasHomoforms() {
-        return wordHasHomoforms;
+        return hasHomoforms;
     }
 
     public Set<String> getPossibleHomoforms() {
         return possibleHomoforms;
-    }
-
-    public ParserSettings getUsedSettings() {
-        return usedSettings;
     }
 
     @Override
@@ -51,11 +46,11 @@ public class WordParsingResult {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WordParsingResult that = (WordParsingResult) o;
-        return wordHasHomoforms == that.wordHasHomoforms && parsedWord.equals(that.parsedWord) && Objects.equals(possibleHomoforms, that.possibleHomoforms) && usedSettings.equals(that.usedSettings);
+        return hasHomoforms == that.hasHomoforms && getParsedWord().equals(that.getParsedWord()) && Objects.equals(getPossibleHomoforms(), that.getPossibleHomoforms());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(parsedWord, wordHasHomoforms, possibleHomoforms, usedSettings);
+        return Objects.hash(getParsedWord(), hasHomoforms, getPossibleHomoforms());
     }
 }

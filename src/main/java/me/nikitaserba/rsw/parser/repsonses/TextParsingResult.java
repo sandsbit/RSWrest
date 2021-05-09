@@ -8,15 +8,13 @@ import java.util.Objects;
 /**
  * Class that stores result of parsing text by `HomographParser`.
  */
-public final class TextParsingResult {
+public final class TextParsingResult extends ParsingResult {
 
     private final String text;  // original text that was checked
 
     private final long totalNumberOfParsedWords;  // size of 'wordsThatHaveHomoforms'
     private final boolean foundAnyWordsThatHaveHomoforms;  // True if 'wordsThatHaveHomoforms' is not empty
     private final List<ParsedWordInText> wordsThatHaveHomoforms;
-
-    private final ParserSettings usedSettings;  // setting that used parser while parsing
 
     /**
      * Create new result of parsing text.
@@ -28,11 +26,11 @@ public final class TextParsingResult {
      * @param usedSettings - settings used while parsing
      */
     public TextParsingResult(String text, long totalNumberOfParsedWords, List<ParsedWordInText> wordsThatHaveHomoforms, ParserSettings usedSettings) {
+        super(usedSettings);
         this.text = text;
         this.totalNumberOfParsedWords = totalNumberOfParsedWords;
         this.foundAnyWordsThatHaveHomoforms = (totalNumberOfParsedWords != 0);
         this.wordsThatHaveHomoforms = foundAnyWordsThatHaveHomoforms ? wordsThatHaveHomoforms : null;
-        this.usedSettings = usedSettings;
     }
 
     /**
@@ -46,11 +44,11 @@ public final class TextParsingResult {
      * @param usedSettings - settings used while parsing will
      */
     public TextParsingResult(String text, List<ParsedWordInText> wordsThatHaveHomoforms, ParserSettings usedSettings) {
+        super(usedSettings);
         this.text = text;
         this.totalNumberOfParsedWords = wordsThatHaveHomoforms.size();
         this.foundAnyWordsThatHaveHomoforms = (totalNumberOfParsedWords != 0);
         this.wordsThatHaveHomoforms = foundAnyWordsThatHaveHomoforms ? wordsThatHaveHomoforms : null;
-        this.usedSettings = usedSettings;
     }
 
     public String getText() {
@@ -69,20 +67,16 @@ public final class TextParsingResult {
         return wordsThatHaveHomoforms;
     }
 
-    public ParserSettings getUsedSettings() {
-        return usedSettings;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TextParsingResult result = (TextParsingResult) o;
-        return totalNumberOfParsedWords == result.totalNumberOfParsedWords && foundAnyWordsThatHaveHomoforms == result.foundAnyWordsThatHaveHomoforms && text.equals(result.text) && Objects.equals(wordsThatHaveHomoforms, result.wordsThatHaveHomoforms) && usedSettings.equals(result.usedSettings);
+        return getTotalNumberOfParsedWords() == result.getTotalNumberOfParsedWords() && foundAnyWordsThatHaveHomoforms == result.foundAnyWordsThatHaveHomoforms && getText().equals(result.getText()) && Objects.equals(getWordsThatHaveHomoforms(), result.getWordsThatHaveHomoforms());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, totalNumberOfParsedWords, foundAnyWordsThatHaveHomoforms, wordsThatHaveHomoforms, usedSettings);
+        return Objects.hash(getText(), getTotalNumberOfParsedWords(), foundAnyWordsThatHaveHomoforms, getWordsThatHaveHomoforms());
     }
 }
