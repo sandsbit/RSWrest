@@ -114,10 +114,13 @@ public final class HomographParser {
      * Check if the word has homoforms.
      *
      * @param word - word to check.
-     * @param settings - settings to be used by parser.
+     * @param settings - settings to be used by parser. If null, default settings will be used.
      * @return WordParsingResult instance with results of parsing.
      */
     public static WordParsingResult parseWord(String word, ParserSettings settings) {
+        if (settings == null)
+            settings = defaultSettings;
+
         boolean mayBeProperName = Character.isUpperCase(word.charAt(0));
         String wordLowered = word.toLowerCase(Locale.ROOT);
 
@@ -205,10 +208,12 @@ public final class HomographParser {
      * Check what words in the text have homoforms.
      *
      * @param text - text to check.
-     * @param settings - settings to be used by parser.
+     * @param settings - settings to be used by parser. If null, default settings will be used.
      * @return TextParsingResult with results of parsing.
      */
     public static TextParsingResult parseText(String text, ParserSettings settings) {
+        if (settings == null)
+            settings = defaultSettings;
         return parseTextWithGivenWordParsingMethod(text, settings, HomographParser::parseWord);
     }
 
