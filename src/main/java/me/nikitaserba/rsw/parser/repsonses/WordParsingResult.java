@@ -44,7 +44,7 @@ public class WordParsingResult extends ParsingResult {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof WordParsingResult)) return false;
         if (!super.equals(o)) return false;
         WordParsingResult that = (WordParsingResult) o;
         return hasHomoforms == that.hasHomoforms && getParsedWord().equals(that.getParsedWord()) && Objects.equals(getPossibleHomoforms(), that.getPossibleHomoforms());

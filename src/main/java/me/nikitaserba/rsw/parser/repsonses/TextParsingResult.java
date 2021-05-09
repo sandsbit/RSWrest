@@ -70,7 +70,7 @@ public class TextParsingResult extends ParsingResult {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TextParsingResult)) return false;
         if (!super.equals(o)) return false;
         TextParsingResult result = (TextParsingResult) o;
         return getTotalNumberOfParsedWords() == result.getTotalNumberOfParsedWords() && foundAnyWordsThatHaveHomoforms == result.foundAnyWordsThatHaveHomoforms && getText().equals(result.getText()) && Objects.equals(getWordsThatHaveHomoforms(), result.getWordsThatHaveHomoforms());

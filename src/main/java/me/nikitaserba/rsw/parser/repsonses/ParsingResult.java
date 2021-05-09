@@ -20,7 +20,7 @@ public abstract class ParsingResult {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ParsingResult)) return false;
         ParsingResult that = (ParsingResult) o;
         return Objects.equals(getUsedSettings(), that.getUsedSettings());
     }

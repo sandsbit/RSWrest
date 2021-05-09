@@ -27,7 +27,7 @@ public class WordParsingResultSession extends WordParsingResult implements Sessi
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof WordParsingResultSession)) return false;
         if (!super.equals(o)) return false;
         WordParsingResultSession that = (WordParsingResultSession) o;
         return isChanged() == that.isChanged();

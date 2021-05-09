@@ -56,7 +56,7 @@ public class ParsedWordInText extends WordParsingResult {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ParsedWordInText)) return false;
         if (!super.equals(o)) return false;
         ParsedWordInText that = (ParsedWordInText) o;
         return getBeginPosition() == that.getBeginPosition() && getEndPosition() == that.getEndPosition();
