@@ -3,9 +3,7 @@ package me.nikitaserba.rsw.parser;
 import manifold.ext.rt.api.Jailbreak;
 import manifold.rt.api.util.Pair;
 import me.nikitaserba.rsw.parser.exceptions.InvalidSessionTokenException;
-import me.nikitaserba.rsw.parser.repsonses.ParsedWordInText;
-import me.nikitaserba.rsw.parser.repsonses.TextParsingResult;
-import me.nikitaserba.rsw.parser.repsonses.WordParsingResult;
+import me.nikitaserba.rsw.parser.repsonses.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -85,7 +83,7 @@ public class HomographParserSessionTests {
     void TestParsingWordsDefaultSettings() throws InvalidSessionTokenException {
         String sessionId = HomographParser.startSession();
         String word = "пчелы";
-        Pair<WordParsingResult, HomographParser.ChangeState> result = HomographParser.s_parseWord(sessionId, word);
+        WordParsingResultSession result = HomographParser.s_parseWord(sessionId, word);
 
         assertEquals(HomographParser.ChangeState.CHANGED, result.getSecond());
 
@@ -100,7 +98,7 @@ public class HomographParserSessionTests {
 
         assertEquals(expected, result.getFirst());
 
-        Pair<WordParsingResult, HomographParser.ChangeState> result2 = HomographParser.s_parseWord(sessionId, "капибара");
+        WordParsingResultSession result2 = HomographParser.s_parseWord(sessionId, "капибара");
         assertFalse(result2.getFirst().hasHomoforms());
         assertEquals(HomographParser.ChangeState.CHANGED, result2.getSecond());
         assertNull(result2.getFirst().getPossibleHomoforms());
@@ -121,7 +119,7 @@ public class HomographParserSessionTests {
         ParserSettings settings = new ParserSettings(false, "ru-RU");
         HomographParser.setSessionSettings(sessionId, settings);
 
-        Pair<WordParsingResult, HomographParser.ChangeState> result = HomographParser.s_parseWord(sessionId, word);
+        WordParsingResultSession result = HomographParser.s_parseWord(sessionId, word);
 
         assertEquals(HomographParser.ChangeState.CHANGED, result.getSecond());
 
@@ -157,7 +155,7 @@ public class HomographParserSessionTests {
         String sessionId = HomographParser.startSession();
 
         String text = "В поле замок, в нём пЧЕлы, перед ними замо́к";
-        Pair<TextParsingResult, HomographParser.ChangeState> result = HomographParser.s_parseText(sessionId, text);
+        TextParsingResultSession result = HomographParser.s_parseText(sessionId, text);
 
         assertEquals(HomographParser.ChangeState.CHANGED, result.getSecond());
 
@@ -204,7 +202,7 @@ public class HomographParserSessionTests {
         ParserSettings settings = new ParserSettings(false, "ru-RU");
         HomographParser.setSessionSettings(sessionId, settings);
 
-        Pair<TextParsingResult, HomographParser.ChangeState> result = HomographParser.s_parseText(sessionId, text);
+        TextParsingResultSession result = HomographParser.s_parseText(sessionId, text);
 
         assertEquals(HomographParser.ChangeState.CHANGED, result.getSecond());
 
