@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import manifold.rt.api.util.Pair;
 import me.nikitaserba.rsw.parser.exceptions.InvalidSessionTokenException;
-import me.nikitaserba.rsw.parser.repsonses.ParsedWordInText;
-import me.nikitaserba.rsw.parser.repsonses.TextParsingResult;
-import me.nikitaserba.rsw.parser.repsonses.WordParsingResult;
+import me.nikitaserba.rsw.parser.repsonses.*;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -376,7 +374,7 @@ public final class HomographParser {
      * @return WordParsingResult instance with results of parsing is key; value contains information if parsing
      *         result has changed since last request.
      */
-    private static Pair<WordParsingResult, ChangeState> parseWordUsingCache(Session session, String word, boolean saveWord) {
+    private static WordParsingResultSession parseWordUsingCache(Session session, String word, boolean saveWord) {
         WordParsingResult result = session.getWordParsingResultFromCache(word);
         if (result == null) {
             result = parseWord(word, session.getSettings());
@@ -387,7 +385,7 @@ public final class HomographParser {
         if (saveWord)
             session.setWord(word);
 
-        return new Pair<>(result, changed ? ChangeState.CHANGED : ChangeState.NOT_CHANGED);
+        return new WordParsingResultSession(result, changed ? ChangeState.CHANGED : ChangeState.NOT_CHANGED);
     }
 
     /**
@@ -401,7 +399,7 @@ public final class HomographParser {
      *         result has changed since last request.
      * @throws InvalidSessionTokenException if there's no sessions with given id.
      */
-    public static Pair<WordParsingResult, ChangeState> s_parseWord(String id, String word) throws InvalidSessionTokenException {
+    public static WordParsingResultSession s_parseWord(String id, String word) throws InvalidSessionTokenException {
         Session session = Session.getByToken(id);
         if (session == null)
             throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
@@ -420,20 +418,20 @@ public final class HomographParser {
      *         result has changed since last request.
      * @throws InvalidSessionTokenException if there's no sessions with given id.
      */
-    public static Pair<TextParsingResult, ChangeState> s_parseText(String id, String text) throws InvalidSessionTokenException {
+    public static TextParsingResultSession s_parseText(String id, String text) throws InvalidSessionTokenException {
         Session session = Session.getByToken(id);
         if (session == null)
             throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
 
         if (session.getText() != null && session.getText().equals(text))
-            return new Pair<>(session.getTextParsingResultCache(), ChangeState.NOT_CHANGED);
+            return new TextParsingResultSession(session.getTextParsingResultCache(), ChangeState.NOT_CHANGED);
 
         session.setText(text);
         TextParsingResult result = parseTextWithGivenWordParsingMethod(text, session.getSettings(),
                 (word, settings) -> parseWordUsingCache(session, word, false).getFirst());
         session.setTextParsingResultCache(result);
 
-        return new Pair<>(result, ChangeState.CHANGED);
+        return new TextParsingResultSession(result, ChangeState.CHANGED);
     }
 
 }
