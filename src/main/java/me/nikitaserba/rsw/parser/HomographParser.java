@@ -362,7 +362,7 @@ public final class HomographParser {
             throw new InvalidSessionTokenException("Session with id" + id + "doesn't exist", id);
     }
 
-    enum ChangeState {
+    public enum ChangeState {
         CHANGED,
         NOT_CHANGED
     }
