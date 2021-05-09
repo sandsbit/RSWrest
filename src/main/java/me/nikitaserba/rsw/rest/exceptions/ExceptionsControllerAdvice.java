@@ -48,4 +48,13 @@ public class ExceptionsControllerAdvice {
         return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "JSON_PARSING_ERROR", ex.getMessage());
     }
 
+    @ExceptionHandler(BadlyFormedRequestException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseBody
+    public String badlyFormedRequest(BadlyFormedRequestException ex) {
+        ErrorResponse error = new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(), "INVALID_PARSING_REQUEST",
+                ex.getMessage());
+        return gson.toJson(error);
+    }
+
 }
