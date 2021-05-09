@@ -58,6 +58,29 @@ public class HomographParserSessionTests {
     }
 
     @Test
+    @DisplayName("Test null policies in method that sets session settings")
+    void TestSessionSettingsNullPolicies() throws InvalidSessionTokenException {
+        String id = HomographParser.startSession();
+        assertNotNull(id);
+
+        ParserSettings set1 = new ParserSettings(!parser.defaultSettings.isIgnoringDiacritic(), "en-US");
+        ParserSettings set2 = new ParserSettings(null, "en-US");
+
+        HomographParser.setSessionSettings(id, set1);
+
+        HomographParser.setSessionSettings(id, set2, HomographParser.SessionSettingsNullPolicies.DONT_CHANGE);
+        assertEquals(set1.isIgnoringDiacritic(), HomographParser.getSessionSettings(id).isIgnoringDiacritic());
+
+        HomographParser.setSessionSettings(id, set2, HomographParser.SessionSettingsNullPolicies.SET_TO_NULL);
+        assertEquals(null, HomographParser.getSessionSettings(id).isIgnoringDiacritic());
+
+        HomographParser.setSessionSettings(id, set2, HomographParser.SessionSettingsNullPolicies.SET_TO_DEFAULT);
+        assertEquals(parser.defaultSettings.isIgnoringDiacritic(), HomographParser.getSessionSettings(id).isIgnoringDiacritic());
+
+        HomographParser.endSession(id);
+    }
+
+    @Test
     @DisplayName("Test parsing words with default settings")
     void TestParsingWordsDefaultSettings() throws InvalidSessionTokenException {
         String sessionId = HomographParser.startSession();
