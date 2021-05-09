@@ -59,11 +59,11 @@ public class ParsedWordInText extends WordParsingResult {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ParsedWordInText that = (ParsedWordInText) o;
-        return beginPosition == that.beginPosition && endPosition == that.endPosition;
+        return getBeginPosition() == that.getBeginPosition() && getEndPosition() == that.getEndPosition();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), beginPosition, endPosition);
+        return Objects.hash(super.hashCode(), getBeginPosition(), getEndPosition());
     }
 }

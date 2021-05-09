@@ -71,12 +71,13 @@ public class TextParsingResult extends ParsingResult {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         TextParsingResult result = (TextParsingResult) o;
         return getTotalNumberOfParsedWords() == result.getTotalNumberOfParsedWords() && foundAnyWordsThatHaveHomoforms == result.foundAnyWordsThatHaveHomoforms && getText().equals(result.getText()) && Objects.equals(getWordsThatHaveHomoforms(), result.getWordsThatHaveHomoforms());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getText(), getTotalNumberOfParsedWords(), foundAnyWordsThatHaveHomoforms, getWordsThatHaveHomoforms());
+        return Objects.hash(super.hashCode(), getText(), getTotalNumberOfParsedWords(), foundAnyWordsThatHaveHomoforms, getWordsThatHaveHomoforms());
     }
 }

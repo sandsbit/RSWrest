@@ -45,12 +45,13 @@ public class WordParsingResult extends ParsingResult {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         WordParsingResult that = (WordParsingResult) o;
         return hasHomoforms == that.hasHomoforms && getParsedWord().equals(that.getParsedWord()) && Objects.equals(getPossibleHomoforms(), that.getPossibleHomoforms());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getParsedWord(), hasHomoforms, getPossibleHomoforms());
+        return Objects.hash(super.hashCode(), getParsedWord(), hasHomoforms, getPossibleHomoforms());
     }
 }
