@@ -1,13 +1,15 @@
 package me.nikitaserba.rsw.parser;
 
 import manifold.ext.rt.api.Jailbreak;
-import manifold.rt.api.util.Pair;
 import me.nikitaserba.rsw.parser.exceptions.InvalidSessionTokenException;
 import me.nikitaserba.rsw.parser.repsonses.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
