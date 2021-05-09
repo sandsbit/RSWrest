@@ -1,5 +1,7 @@
 package me.nikitaserba.rsw.parser.repsonses;
 
+import me.nikitaserba.rsw.parser.HomographParser;
+
 /**
  * This interface must be implemented by all session parsing results.
  *
@@ -30,11 +32,11 @@ public interface SessionParsingResult<T> {
      * @deprecated
      * This method was created to left compatibility with Pair<T, Boolean> class. Use isChanged() instead. WILL be
      * removed in future versions.
-     * @return true if parsing result has changed sine last request, otherwise false.
+     * @return CHANGED if parsing result has changed sine last request, otherwise NOT_CHANGED.
      */
     @Deprecated
-    default boolean getSecond() {
-        return isChanged();
+    default HomographParser.ChangeState getSecond() {
+        return isChanged() ? HomographParser.ChangeState.CHANGED : HomographParser.ChangeState.NOT_CHANGED;
     }
 
 }
